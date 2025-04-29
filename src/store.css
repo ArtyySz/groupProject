@@ -1,10 +1,46 @@
-.osnova {
+body {
     width: 1920px;
     height: 1080px;
     background-color: #83c9d9;
+    z-index: 0;
   }
 
 .menu {
-    border-radius: 15px
+    position: absolute;
+    top: 31px;
+    bottom: 34px;
+    left: 18px;
+    right: 1479px;
+    width: 423px;
+    height: 1015px;
+    border-radius: 15px;
+    background-color: #166e82;
+    left: 18px;
+    z-index: 1;
 }
-  
+
+.menutxt {
+    font-weight: 800;
+    font-size: 48px;
+    color: #fff;
+    border-color: black;
+    border-radius: 3px;
+    top: 28px;
+    right: 125px;
+    left: 110px;
+    bottom: 914px;
+    position: absolute;
+}
+
+.storik {
+    width: 378px;
+    height: 108px;
+    background-color: #54b763;
+    border-radius: 30px;
+    border: 3px solid black;
+    top: 126px;
+    right: 18px;
+    left: 27px;
+    bottom: 781px;
+    position: absolute;
+}
