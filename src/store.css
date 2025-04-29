@@ -3,16 +3,17 @@ body {
     height: 1080px;
     background-color: #83c9d9;
     z-index: 0;
-  }
+    position: fixed;
+}
 
 .menu {
-    position: absolute;
+    position: fixed;
     top: 31px;
     bottom: 34px;
     left: 18px;
     right: 1479px;
     width: 423px;
-    height: 1015px;
+    height: 850px;
     border-radius: 15px;
     background-color: #166e82;
     left: 18px;
@@ -30,17 +31,112 @@ body {
     left: 110px;
     bottom: 914px;
     position: absolute;
+    font-family: "Inter-ExtraBold", Helvetica;
+    text-shadow: 
+        0 0 4px #000,
+        -2px -2px 0 #000,  
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+}
+
+/* Кнопки вместо div */
+.storik, 
+.dostizh, 
+.top {
+    display: block; /* Чтобы кнопки вели себя как блоки */
+    width: 378px;
+    height: 108px;
+    border-radius: 30px;
+    border: 3px solid black;
+    position: absolute;
+    cursor: pointer; /* Курсор-указатель при наведении */
+    padding: 0; /* Убираем стандартные отступы кнопки */
+    background-color: #54b763; /* Цвет для storik */
+}
+
+.dostizh, 
+.top {
+    background-color: #054f60; /* Цвет для dostizh и top */
 }
 
 .storik {
-    width: 378px;
-    height: 108px;
-    background-color: #54b763;
-    border-radius: 30px;
-    border: 3px solid black;
     top: 126px;
-    right: 18px;
-    left: 27px;
-    bottom: 781px;
+    left: 18px;
+}
+
+.dostizh {
+    top: 251px;
+    left: 18px;
+}
+
+.top {
+    top: 379px;
+    left: 18px;
+}
+.storik:hover, .dostizh:hover, .top:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transform: translateZ(0); /* Аппаратное ускорение для плавности */
+}
+
+.storik, .dostizh, .top {
+    transition: all 0.2s ease-out;
+    will-change: filter, box-shadow; /* Оптимизация анимации */
+}
+
+/* Стили текста внутри кнопок (остаются без изменений) */
+.text1, .text2 {
+    width: 172px;
+    height: 48px;
+    font-weight: 800;
+    font-size: 40px;
+    color: white;
+    font-family: "Inter-ExtraBold", Helvetica;
+    text-shadow: 
+        0 0 4px #000,
+        -2px -2px 0 #000,  
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+    left: 10px;
+    top: 25px;
+    bottom: 30px;
     position: absolute;
+}
+
+.text3 {
+    width: 172px;
+    height: 48px;
+    font-weight: 800;
+    font-size: 40px;
+    color: white;
+    font-family: "Inter-ExtraBold", Helvetica;
+    text-shadow: 
+        0 0 4px #000,
+        -2px -2px 0 #000,  
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+    top: 25px;
+    left: -35px;
+    bottom: 30px;
+    position: absolute;
+}
+
+.box {
+    width: 1388px;
+    height: 713px;
+    background-color: #054f60;
+    border-radius: 15px;
+    position: fixed;
+    left: 500px;
+    top: 168px;
+}
+
+.icons-menu {
+    width: 50px;
+    height: 50px;
+    left: 145px;
+    position: relative;
 }
