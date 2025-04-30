@@ -33,6 +33,48 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1500);
     }
 
+    function showAchievementPopup() {
+        // Проверяем, нет ли уже активного попапа
+        if (document.querySelector('.achievement-popup')) return;
+
+        // Создаем попап
+        const popup = document.createElement('div');
+        popup.className = 'achievement-popup';
+
+        // Создаем иконку достижения (уменьшенный размер)
+        const icon = document.createElement('img');
+        icon.className = 'achievement-icon';
+        icon.src = 'image/achivMonstr.png'; // Замените на ваш путь
+        icon.alt = 'Достижение';
+        icon.draggable = false;
+
+        // Создаем текст
+        const text = document.createElement('div');
+        text.className = 'achievement-text';
+        text.textContent = 'Новое достижение!';
+
+        // Добавляем элементы в попап
+        popup.appendChild(icon);
+        popup.appendChild(text);
+
+        // Добавляем попап на страницу
+        document.body.appendChild(popup);
+
+        // Показываем попап с небольшой задержкой
+        setTimeout(() => {
+            popup.classList.add('show');
+        }, 50);
+
+        // Скрываем через 3 секунды
+        setTimeout(() => {
+            popup.classList.remove('show');
+            // Удаляем после завершения анимации
+            setTimeout(() => {
+                popup.remove();
+            }, 300);
+        }, 3000);
+    }
+
     monster.addEventListener('click', function(e) {
         if(!isAlive) return;
         // 1. Получаем позицию клика относительно monster-area
@@ -75,6 +117,8 @@ document.addEventListener('DOMContentLoaded', function() {
             coinsDisplay.textContent = coins;
             showCoinReward(100);
 
+            showAchievementPopup(); // надо сделать чтобы было единожды а не каждый раз
+
             // Возрождение через 5 сек
             setTimeout(() => {
                 health = 100;
@@ -90,6 +134,3 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 100);
     });
 });
-
- 
-
