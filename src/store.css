@@ -1,142 +1,156 @@
 body {
-    width: 1920px;
-    height: 1080px;
-    background-color: #83c9d9;
-    z-index: 0;
-    position: fixed;
+    background-color: #83C9D9;
 }
 
 .menu {
-    position: fixed;
+    width: 25vw;
     top: 31px;
+    left: 18px;
     bottom: 34px;
-    left: 18px;
-    right: 1479px;
-    width: 423px;
-    height: 850px;
-    border-radius: 15px;
-    background-color: #166e82;
-    left: 18px;
-    z-index: 1;
-}
-
-.menutxt {
-    font-weight: 800;
-    font-size: 48px;
-    color: #fff;
-    border-color: black;
-    border-radius: 3px;
-    top: 28px;
-    right: 125px;
-    left: 110px;
-    bottom: 914px;
-    position: absolute;
-    font-family: "Inter-ExtraBold", Helvetica;
-    text-shadow: 
-        0 0 4px #000,
-        -2px -2px 0 #000,  
-        2px -2px 0 #000,
-        -2px 2px 0 #000,
-        2px 2px 0 #000;
-}
-
-/* Кнопки вместо div */
-.storik, 
-.dostizh, 
-.top {
-    display: block; /* Чтобы кнопки вели себя как блоки */
-    width: 378px;
-    height: 108px;
-    border-radius: 30px;
-    border: 3px solid black;
-    position: absolute;
-    cursor: pointer; /* Курсор-указатель при наведении */
-    padding: 0; /* Убираем стандартные отступы кнопки */
-    background-color: #54b763; /* Цвет для storik */
-}
-
-.dostizh, 
-.top {
-    background-color: #054f60; /* Цвет для dostizh и top */
-}
-
-.storik {
-    top: 126px;
-    left: 18px;
-}
-
-.dostizh {
-    top: 251px;
-    left: 18px;
-}
-
-.top {
-    top: 379px;
-    left: 18px;
-}
-.storik:hover, .dostizh:hover, .top:hover {
-    filter: brightness(1.1);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    transform: translateZ(0); /* Аппаратное ускорение для плавности */
-}
-
-.storik, .dostizh, .top {
-    transition: all 0.2s ease-out;
-    will-change: filter, box-shadow; /* Оптимизация анимации */
-}
-
-/* Стили текста внутри кнопок (остаются без изменений) */
-.text1, .text2 {
-    width: 172px;
-    height: 48px;
-    font-weight: 800;
-    font-size: 40px;
+    background-color: #166E82;
     color: white;
-    font-family: "Inter-ExtraBold", Helvetica;
-    text-shadow: 
-        0 0 4px #000,
-        -2px -2px 0 #000,  
-        2px -2px 0 #000,
-        -2px 2px 0 #000,
-        2px 2px 0 #000;
-    left: 10px;
-    top: 25px;
-    bottom: 30px;
-    position: absolute;
-}
-
-.text3 {
-    width: 172px;
-    height: 48px;
-    font-weight: 800;
-    font-size: 40px;
-    color: white;
-    font-family: "Inter-ExtraBold", Helvetica;
-    text-shadow: 
-        0 0 4px #000,
-        -2px -2px 0 #000,  
-        2px -2px 0 #000,
-        -2px 2px 0 #000,
-        2px 2px 0 #000;
-    top: 25px;
-    left: -35px;
-    bottom: 30px;
-    position: absolute;
-}
-
-.box {
-    width: 1388px;
-    height: 713px;
-    background-color: #054f60;
-    border-radius: 15px;
+    padding: 20px 0;
     position: fixed;
-    left: 500px;
-    top: 168px;
+    border-radius: 15px;
+}
+
+.menu-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    text-shadow:
+        0 0 4px #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+}
+
+.menu-button, .achievements-button, .top-button, .profile-button {
+    width: 80%;
+    height: 15%;
+    margin: 10px auto;
+    padding: 12px;
+    background-color: #064F60;
+    border: none;
+    border-radius: 10px; /* Увеличим скругление углов */
+    cursor: pointer;
+    transition: all 0.3s ease; /* Плавный переход всех свойств */
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    color: #FFECEC;
+    font-size: 20px;
+    font-family: "Inter-ExtraBold", Helvetica;
+    font-weight: 400;
+    word-wrap: break-word;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень кнопки */
+    position: relative; /* Для псевдоэлемента */
+    overflow: hidden; /* Чтобы анимация не выходила за границы */
+    text-shadow: 
+        0 0 4px #000,
+        -2px -2px 0 #000,  
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+    border-radius: 30px;
+    border: 3px solid black;    
+
+}
+
+.menu-button {
+    background-color: #54b763;
+}
+
+.menu-button:hover, .achievements-button:hover, .top-button:hover, .profile-button:hover {
+    background-color: #0A6F84; /* Более светлый оттенок */
+    transform: translateY(-3px); /* Легкий подъем */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #FFFFFF; /* Более яркий текст */
+}
+
+.menu-button:hover {
+    background-color: #00CC1F;
+}
+
+.menu-button:active {
+    transform: translateY(1px); /* Эффект нажатия */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .icons-menu {
-    width: 50px;
-    height: 50px;
-    left: 145px;
-    position: relative;
+    width: 25%;
+    height: 85%;
+    transition: transform 0.3s ease;
+}
+
+.box {
+    top: 135px;
+    bottom: 34px;
+    margin-left: 27vw;
+    width: 71vw;
+    background-color: #166E82;
+    color: white;
+    padding: 20px 0;
+    border-radius: 15px;
+    position: fixed;
+    display: flex;
+    grid-template-columns: repeat(auto-fill);
+    gap: 10px;
+}
+
+
+  
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 500px;
+    padding: 140px 67px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .item {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    aspect-ratio: 5 / 5;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  
+  .item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  .item img {
+    width: 100%;
+    height: auto;
+    max-height: 80%;
+    object-fit: contain;
+    margin-bottom: 4px;
+    transition: transform 0.25s ease;
+  }
+  
+  .item p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+  }
+.icon-store {
+    position: fixed;
+    width: 8vw; /* Фиксированный размер */
+    height: 14vh; /* Сохраняет пропорции */
+    left: 60%; /* Центрирование по горизонтали */
+    top: 8px; /* Отступ сверху - можно регулировать */
+    transform: translateX(-50%); /* Точное центрирование */
+    z-index: 1000; /* Чтобы было поверх других элементов */
 }

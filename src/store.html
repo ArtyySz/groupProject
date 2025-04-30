@@ -1,26 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="store.css" />
+    <link rel="stylesheet" href="store.css">
+    <title>clickerItalianoAnimal</title>
 </head>
 <body>
     <div class="menu">
-        <h1 class="menutxt">МЕНЮ</h1>
-        <button class="storik"> 
-            <div class="text1">Магазин</div>
-        </button>
-        <button class="dostizh"><img src="image/trophy.png" alt="" class="icons-menu">
-            <div class="text2">Достижения</div>
-        </button>
-        <button class="top">
-            <div class="text3">Топ</div>
-        </button>
+        <div class="menu-title">МЕНЮ</div>
+        <button class="menu-button">Магазин </button>
+        <button class="achievements-button" onclick="location.href='achievements.html'">Достижения <img src="image/school.png" alt="" class="icons-menu"></button>
+        <button class="top-button" onclick="location.href='top.html'">Топ <img src="image/trophy.png" alt="" class="icons-menu"></button>
+        <button class="profile-button" onclick="location.href='profile.html'">Профиль <img src="image/profile.png" alt="" class="icons-menu"></button>
     </div>
+    <img src="image/store.png" alt="" class="icon-store">
     <div class="box">
-
+        <div class="grid-container">
+            <button class="item" onclick="handleClick('+1 за клик')">
+                <img src="image/click.jpg" alt="+1 за клик">
+                <p>+1 урон за клик</p>
+            </button>
+            <button class="item" onclick="handleClick('+1 в секунду')">
+                <img src="image/rich.png" alt="+1 в секунду">
+                <p>+1 монета в секунду</p>
+            </button>
+            
+            <!-- Добавь остальные кнопки аналогично -->
+        </div>
     </div>
 </body>
 </html>
