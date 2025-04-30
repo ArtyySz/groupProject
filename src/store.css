@@ -34,9 +34,9 @@ body {
     padding: 12px;
     background-color: #064F60;
     border: none;
-    border-radius: 10px; /* Увеличим скругление углов */
+    border-radius: 10px;
     cursor: pointer;
-    transition: all 0.3s ease; /* Плавный переход всех свойств */
+    transition: all 0.3s ease;
     text-align: left;
     display: flex;
     align-items: center;
@@ -47,9 +47,9 @@ body {
     font-family: "Inter-ExtraBold", Helvetica;
     font-weight: 400;
     word-wrap: break-word;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень кнопки */
-    position: relative; /* Для псевдоэлемента */
-    overflow: hidden; /* Чтобы анимация не выходила за границы */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
     text-shadow: 
         0 0 4px #000,
         -2px -2px 0 #000,  
@@ -58,7 +58,6 @@ body {
         2px 2px 0 #000;
     border-radius: 30px;
     border: 3px solid black;    
-
 }
 
 .menu-button {
@@ -66,10 +65,10 @@ body {
 }
 
 .menu-button:hover, .achievements-button:hover, .top-button:hover, .profile-button:hover {
-    background-color: #0A6F84; /* Более светлый оттенок */
-    transform: translateY(-3px); /* Легкий подъем */
+    background-color: #0A6F84;
+    transform: translateY(-3px);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    color: #FFFFFF; /* Более яркий текст */
+    color: #FFFFFF;
 }
 
 .menu-button:hover {
@@ -77,7 +76,7 @@ body {
 }
 
 .menu-button:active {
-    transform: translateY(1px); /* Эффект нажатия */
+    transform: translateY(1px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -102,8 +101,6 @@ body {
     gap: 10px;
 }
 
-
-  
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
@@ -111,9 +108,9 @@ body {
     padding: 140px 67px;
     max-width: 100%;
     box-sizing: border-box;
-  }
-  
-  .item {
+}
+
+.item {
     background-color: transparent;
     border: none;
     padding: 0;
@@ -123,38 +120,40 @@ body {
     align-items: center;
     aspect-ratio: 5 / 5;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
-  }
-  
-  .item:hover {
+}
+
+.item:hover {
     transform: scale(1.05);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  }
-  
-  .item img {
+}
+
+.item img {
     width: 100%;
     height: auto;
     max-height: 80%;
     object-fit: contain;
     margin-bottom: 4px;
     transition: transform 0.25s ease;
-  }
-  
-  .item p {
+}
+
+.item p {
     margin: 0;
     font-size: 14px;
     font-weight: bold;
     text-align: center;
-  }
-.icon-store {
-    position: fixed;
-    width: 8vw; /* Фиксированный размер */
-    height: 14vh; /* Сохраняет пропорции */
-    left: 60%; /* Центрирование по горизонтали */
-    top: 8px; /* Отступ сверху - можно регулировать */
-    transform: translateX(-50%); /* Точное центрирование */
-    z-index: 1000; /* Чтобы было поверх других элементов */
 }
 
+.icon-store {
+    position: fixed;
+    width: 8vw;
+    height: 14vh;
+    left: 60%;
+    top: 8px;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+/* Обновленные стили для кнопки "Назад" */
 .back {
     width: 80%;
     height: 50px;
@@ -164,13 +163,13 @@ body {
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
 .back:hover {
@@ -184,13 +183,43 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.back.clicked {
+    background-color: #4CAF50;
+    pointer-events: none; /* Блокируем клики во время анимации */
+}
+
 .back img.icons-menu {
     width: 30px;
     height: 30px;
-    transition: transform 0.3s ease;
     filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+    transition: all 0.3s ease;
 }
 
 .back:hover img.icons-menu {
     transform: scale(1.1) rotate(-10deg);
+}
+
+/* Стили для спиннера загрузки */
+.back .loading-spinner {
+    display: none;
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s linear infinite;
+    position: absolute;
+}
+
+.back.loading .icons-menu {
+    opacity: 0;
+}
+
+.back.loading .loading-spinner {
+    display: block;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
