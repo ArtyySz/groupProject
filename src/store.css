@@ -154,3 +154,43 @@ body {
     transform: translateX(-50%); /* Точное центрирование */
     z-index: 1000; /* Чтобы было поверх других элементов */
 }
+
+.back {
+    width: 80%;
+    height: 50px;
+    margin: 0 auto 20px;
+    padding: 0;
+    background-color: #064F60;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.back:hover {
+    background-color: #0A6F84;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.back:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.back img.icons-menu {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+}
+
+.back:hover img.icons-menu {
+    transform: scale(1.1) rotate(-10deg);
+}
