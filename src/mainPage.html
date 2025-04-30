@@ -10,10 +10,10 @@
     <!-- Меню слева -->
     <div class="menu">
         <div class="menu-title">МЕНЮ</div>
-        <button class="menu-button" onclick="location.href='shop.html'">Магазин <img src="image/store.png" alt="" class="icons-menu"></button>
+        <button class="menu-button" onclick="location.href='shop.html'">Магазин <img src="image/store.png" alt="" class="icons-menu" draggable="false"></button>
         <button class="menu-button" onclick="location.href='achievements.html'">Достижения</button>
-        <button class="menu-button" onclick="location.href='top.html'">Топ <img src="image/trophy.png" alt="" class="icons-menu"></button>
-        <button class="menu-button" onclick="location.href='profile.html'">Профиль <img src="image/userProfile.png" alt="" class="icons-menu"></button>
+        <button class="menu-button" onclick="location.href='top.html'">Топ <img src="image/trophy.png" alt="" class="icons-menu" draggable="false"></button>
+        <button class="menu-button" onclick="location.href='profile.html'">Профиль <img src="image/userProfile.png" alt="" class="icons-menu" draggable="false"></button>
     </div>
 
 
@@ -22,17 +22,19 @@
         <!-- Счетчик монет -->
         <div class="coins-container">
             <div class="coins-count" id="coins">0</div>
-            <img src="image/coin1.png" alt="Монета" class="coin-image">
+            <img src="image/coin1.png" alt="Монета" class="coin-image" draggable="false">
         </div>
 
         <!-- Уровень -->
         <div class="level" id="level">Уровень: 1</div>
-        <div class="health">Здоровье: 0</div>
+        <div class="health">Здоровье: 100</div>
         <div class="container-click">
             <div class="monster-area">
-                <img src="image/tralalelo.png" alt="Монстр" class="monster-image" id="monster">
+                <img src="image/tralalelo.png" alt="Монстр" class="monster-image" id="monster" draggable="false">
+                <div class="damage-container" id="damageContainer"></div>
             </div>
         </div>
     </div>
+    <script src="mainPage.js"></script>
 </body>
 </html>
