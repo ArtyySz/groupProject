@@ -7,7 +7,7 @@ body {
     top: 31px;
     left: 18px;
     bottom: 34px;
-    background-color: #166E82;
+    background-color: #7B410E;
     color: white;
     padding: 20px 0;
     position: fixed;
@@ -27,63 +27,77 @@ body {
         2px 2px 0 #000;
 }
 
-.menu-button, .achievements-button, .top-button, .profile-button {
+.brevno-button {
     width: 80%;
-    height: 15%;
+    height: 120px;
     margin: 10px auto;
-    padding: 12px;
-    background-color: #064F60;
+    padding: 0;
+    background: transparent;
     border: none;
-    border-radius: 10px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: left;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 15px;
-    color: #FFECEC;
+    position: relative;
+    overflow: hidden;
+    text-align: left; /* Выравнивание содержимого по левому краю */
+}
+
+.brevno-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('image/brevno.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    z-index: -1;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+    opacity: 1; /* Полная непрозрачность для обычных кнопок */
+    transition: opacity 0.3s ease;
+}
+
+.brevno-button:hover {
+    transform: translateY(-3px);
+}
+
+.brevno-button:active {
+    transform: translateY(1px);
+}
+
+.button-text {
     font-size: 20px;
     font-family: "Inter-ExtraBold", Helvetica;
     font-weight: 400;
-    word-wrap: break-word;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: relative;
-    overflow: hidden;
+    color: #FFECEC;
     text-shadow:
         0 0 4px #000,
         -2px -2px 0 #000,
         2px -2px 0 #000,
         -2px 2px 0 #000,
         2px 2px 0 #000;
-    border-radius: 30px;
-    border: 3px solid black;
+    margin-left: 40px; /* Отступ от левого края */
+    z-index: 1;
+    flex-grow: 1;
+    text-align: left; /* Выравнивание текста по левому краю */
+    padding-left: 10px; /* Дополнительный внутренний отступ */
 }
 
-.profile-button {
-    background-color: #54b763;
-}
-
-.menu-button:hover, .achievements-button:hover, .top-button:hover, .profile-button:hover {
-    background-color: #0A6F84;
-    transform: translateY(-3px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    color: #FFFFFF;
-}
-
-.profile-button:hover {
-    background-color: #00CC1F;
-}
-
-.achievements-button:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.icons-menu {
-    width: 25%;
-    height: 85%;
+.button-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+    margin-right: 15px; /* Отступ от правого края */
+    z-index: 1;
     transition: transform 0.3s ease;
+    flex-shrink: 0; /* Запрещаем уменьшение иконки */
+}
+
+.brevno-button:hover .button-icon {
+    transform: scale(1.1);
 }
 
 .box {
@@ -101,15 +115,6 @@ body {
     gap: 10px;
 }
 
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 500px;
-    padding: 140px 67px;
-    max-width: 100%;
-    box-sizing: border-box;
-}
-
 .icon-achievements {
     position: fixed;
     width: 8vw;
@@ -120,13 +125,13 @@ body {
     z-index: 1000;
 }
 
-/* Обновленные стили для кнопки "Назад" */
+/* Стили для кнопки "Назад" */
 .back {
     width: 80%;
     height: 50px;
     margin: 0 auto 20px;
     padding: 0;
-    background-color: #064F60;
+    background-color: #5b310c;
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -137,10 +142,11 @@ body {
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    border: 3px solid black;
 }
 
 .back:hover {
-    background-color: #0A6F84;
+    background-color: #65370f;
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
@@ -152,7 +158,7 @@ body {
 
 .back.clicked {
     background-color: #4CAF50;
-    pointer-events: none; /* Блокируем клики во время анимации */
+    pointer-events: none;
 }
 
 .back img.icons-menu {
@@ -191,14 +197,7 @@ body {
     100% { transform: rotate(360deg); }
 }
 
-.achievements-container {
-    width: 60%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
+/* Стили для достижений (если они используются на странице) */
 .achievement {
     background-color: #064F60;
     width: 60vh;
@@ -206,109 +205,23 @@ body {
     padding: 15px;
     border: 3px solid black;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.achievement-title {
-    font-weight: bold;
-    font-size: 18px;
-    margin-bottom: 5px;
-    color: #FFECEC;
-    text-shadow:
-        0 0 4px #000,
-        -1px -1px 0 #000,
-        1px -1px 0 #000,
-        -1px 1px 0 #000,
-        1px 1px 0 #000;
-}
-
-.achievement-description {
-    font-size: 14px;
-    color: #FFECEC;
-    text-shadow:
-        0 0 2px #000,
-        -1px -1px 0 #000,
-        1px -1px 0 #000,
-        -1px 1px 0 #000,
-        1px 1px 0 #000;
-}
-
-.progress-box {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    width: 30%;
-    background-color: #064F60;
-    border-radius: 15px;
-    padding: 15px;
-    border: 3px solid black;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-}
-
-.progress-title {
-    font-weight: bold;
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #FFECEC;
-    text-shadow:
-        0 0 4px #000,
-        -1px -1px 0 #000,
-        1px -1px 0 #000,
-        -1px 1px 0 #000,
-        1px 1px 0 #000;
-}
-
-.progress-count {
-    font-size: 24px;
-    font-weight: bold;
-    color: #FFECEC;
-    text-shadow:
-        0 0 4px #000,
-        -2px -2px 0 #000,
-        2px -2px 0 #000,
-        -2px 2px 0 #000,
-        2px 2px 0 #000;
-}
-
-.box {
-    top: 135px;
-    bottom: 34px;
-    margin-left: 27vw;
-    width: 71vw;
-    background-color: #166E82;
-    color: white;
-    padding: 20px 0;
-    border-radius: 15px;
-    position: fixed;
     display: flex;
-    grid-template-columns: repeat(auto-fill);
-    gap: 10px;
-}
-
-.achievement {
-    background-color: #064F60;
-    width: 60vh;
-    border-radius: 15px;
-    padding: 15px;
-    border: 3px solid black;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: flex; /* Добавляем flex-контейнер */
-    align-items: center; /* Выравниваем элементы по вертикали */
-    gap: 15px; /* Расстояние между изображением и текстом */
+    align-items: center;
+    gap: 15px;
 }
 
 .achivImg {
     width: 5vw;
     height: 10vh;
-    object-fit: contain; /* Чтобы изображение сохраняло пропорции */
-    flex-shrink: 0; /* Запрещаем уменьшение изображения */
+    object-fit: contain;
+    flex-shrink: 0;
     border-radius: 25%;
 }
 
 .achievement-text {
     display: flex;
-    flex-direction: column; /* Текст в колонку */
-    flex-grow: 1; /* Текст занимает все оставшееся пространство */
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .achievement-title {
@@ -333,4 +246,9 @@ body {
         1px -1px 0 #000,
         -1px 1px 0 #000,
         1px 1px 0 #000;
+}
+
+.profile-button::before {
+    opacity: 0.6; /* Полупрозрачность для кнопки профиля */
+    border-radius: 30px;
 }
