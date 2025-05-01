@@ -1,7 +1,6 @@
-    body {
-        background-color: #83C9D9;
-        overflow-x: hidden; /* Запрещаем горизонтальную прокрутку */
-    }
+body {
+    background-color: #38B2CA;                  /* На всю высоту viewport */
+}
 
     .menu {
         width: 25vw;
@@ -9,7 +8,7 @@
         top: 31px;
         left: 18px;
         bottom: 34px;
-        background-color: #7B410E;
+        background-image: url('image/wood2.jpg');
         color: white;
         padding: 20px 0;
         position: fixed;
