@@ -7,11 +7,89 @@ body {
     top: 31px;
     left: 18px;
     bottom: 34px;
-    background-color: #166E82;
+    background-color: #7B410E;
     color: white;
     padding: 20px 0;
     position: fixed;
     border-radius: 15px;
+}
+
+.menu-section {
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.menu-button-image {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0 auto;
+    display: block;
+    cursor: pointer;
+    width: fit-content;
+    height: fit-content;
+    transition: transform 0.3s ease;
+}
+
+.brevno {
+    width: 100%; /* Задаем ширину в процентах от родительского элемента */
+    max-width: 320px; /* Ограничиваем максимальную ширину */
+    height: auto;
+    display: block;
+}
+
+.menu-label {
+    position: absolute;
+    top: 50%; /* Позиционирование по вертикали */
+    left: 57%;
+    transform: translate(-50%, -50%);
+    width: 80%; /* Ширина относительно кнопки */
+    font-size: 1.2vw; /* Размер относительно ширины viewport */
+    font-weight: bold;
+    font-family: "Inter-ExtraBold", Helvetica;
+    color: #FFECEC;
+    text-shadow: 
+        0 0 4px #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+        z-index: 1;
+        flex-grow: 1;
+        text-align: left; /* Выравнивание текста по левому краю */
+        padding-left: 10px; /* Дополнительный внутренний отступ */
+}
+
+.menu-icon {
+    flex-shrink: 0;
+    position: absolute;
+    object-fit: contain;
+    width: 40px;
+    height: 40px;
+    right: 15%; /* Позиция от правого края бревна */
+    top: 50%;
+    transform: translateY(-50%);
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+    transition: transform 0.3s ease;
+    z-index: 2;
+    pointer-events: none; /* Чтобы клики проходили сквозь иконку к кнопке */
+}
+.menu-button-image {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0 auto;
+    display: block;
+    cursor: pointer;
+    width: fit-content;
+    height: fit-content;
+    transition: transform 0.3s ease;
+    position: relative; /* Чтобы текст оставался внутри */
+}
+
+.menu-button-image:hover {
+    transform: scale(1.1);
 }
 
 .menu-title {
@@ -25,59 +103,7 @@ body {
         2px -2px 0 #000,
         -2px 2px 0 #000,
         2px 2px 0 #000;
-}
-
-.menu-button, .achievements-button, .top-button, .profile-button {
-    width: 80%;
-    height: 15%;
-    margin: 10px auto;
-    padding: 12px;
-    background-color: #064F60;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: left;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 15px;
-    color: #FFECEC;
-    font-size: 20px;
-    font-family: "Inter-ExtraBold", Helvetica;
-    font-weight: 400;
-    word-wrap: break-word;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: relative;
-    overflow: hidden;
-    text-shadow:
-        0 0 4px #000,
-        -2px -2px 0 #000,
-        2px -2px 0 #000,
-        -2px 2px 0 #000,
-        2px 2px 0 #000;
-    border-radius: 30px;
-    border: 3px solid black;
-}
-
-.menu-button {
-    background-color: #54b763;
-}
-
-.menu-button:hover, .achievements-button:hover, .top-button:hover, .profile-button:hover {
-    background-color: #0A6F84;
-    transform: translateY(-3px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    color: #FFFFFF;
-}
-
-.menu-button:hover {
-    background-color: #00CC1F;
-}
-
-.menu-button:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
 }
 
 .icons-menu {
@@ -86,12 +112,41 @@ body {
     transition: transform 0.3s ease;
 }
 
+.brevno.magazin {
+    opacity: 0.5; /* Значение от 0 (полностью прозрачный) до 1 (полностью непрозрачный) */
+    transition: opacity 0.3s ease; /* Плавное изменение прозрачности */
+}
+
+.menu-label.magazin {
+    opacity: 0.5; /* Значение от 0 (полностью прозрачный) до 1 (полностью непрозрачный) */
+    transition: opacity 0.3s ease; /* Плавное изменение прозрачности */
+}
+
+.magaz {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('image/store-back.png');
+    background-size: contain; /* Изменено с cover на contain */
+    background-position: center center; /* Добавлено для точного центрирования */
+    background-repeat: no-repeat;
+    background-color: #166E82; /* Цвет фона, если изображение не заполняет весь блок */
+    opacity: 1;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+}
+
 .box {
     top: 135px;
     bottom: 34px;
     margin-left: 27vw;
     width: 71vw;
-    background-color: #166E82;
+    background-color: #7B410E;
     color: white;
     padding: 20px 0;
     border-radius: 15px;
@@ -161,7 +216,7 @@ body {
     height: 50px;
     margin: 0 auto 20px;
     padding: 0;
-    background-color: #064F60;
+    background-color: #5b310c;
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -172,10 +227,11 @@ body {
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    border: 3px solid black;
 }
 
 .back:hover {
-    background-color: #0A6F84;
+    background-color: #65370f;
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }

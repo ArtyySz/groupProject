@@ -16,6 +16,46 @@ body {
     border-radius: 15px;
 }
 
+.menu-button, .achievements-button, .top-button, .profile-button {
+    width: 80%;
+    height: 15%;
+    margin: 10px auto;
+    padding: 12px;
+    background-color: #064F60;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    color: #FFECEC;
+    font-size: 20px;
+    font-family: "Inter-ExtraBold", Helvetica;
+    font-weight: 400;
+    word-wrap: break-word;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    text-shadow:
+        0 0 4px #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+    border-radius: 30px;
+    border: 3px solid black;
+}
+
+.menu-button:hover, .achievements-button:hover, .top-button:hover, .profile-button:hover {
+    background-color: #0A6F84;
+    transform: translateY(-3px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #FFFFFF;
+}
+
 .menu-title {
     text-align: center;
     font-size: 24px;
@@ -41,8 +81,17 @@ body {
     text-shadow: 0 0 4px #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
 }
 
-.menu-button {
+.top-button {
     background-color: #54b763;
+}
+
+.top-button:hover {
+    background-color: #00CC1F;
+}
+
+.top-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .top-container {
