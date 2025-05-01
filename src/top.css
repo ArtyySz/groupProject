@@ -1,0 +1,190 @@
+body {
+    margin: 0;
+    background-color: #83C9D9;
+    font-family: 'Inter', sans-serif;
+}
+
+.menu {
+    width: 25vw;
+    top: 31px;
+    left: 18px;
+    bottom: 34px;
+    background-color: #166E82;
+    color: white;
+    padding: 20px 0;
+    position: fixed;
+    border-radius: 15px;
+}
+
+.menu-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    text-shadow: 0 0 4px #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+}
+
+.menu-button, .achievements-button, .top-button, .profile-button {
+    width: 80%;
+    height: 15%;
+    margin: 10px auto;
+    padding: 12px 15px;
+    border-radius: 30px;
+    border: 3px solid black;
+    font-size: 20px;
+    background-color: #064F60;
+    color: #FFECEC;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    text-shadow: 0 0 4px #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+}
+
+.menu-button {
+    background-color: #54b763;
+}
+
+.top-container {
+    margin-left: 27vw;
+    width: 70vw;
+    top: 135px;
+    background-color: #166E82;
+    border-radius: 15px;
+    padding: 30px 20px;
+    overflow-y: auto;
+    bottom: 34px;
+    position: fixed;
+}
+
+.top-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.top-icon {
+    position: fixed;
+    width: 6.5vw;
+    left: 60%;
+    top: 8px;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+.top-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.top-entry {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 20px;
+    background-color: #0F5B6C;
+    border-radius: 10px;
+    color: white;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+    height: 38px;
+}
+
+.top-rank {
+    min-width: 40px;
+    font-weight: bold;
+    font-size: 22px;
+    text-align: right;
+    position: sticky;
+    left: 0;
+    background-color: #0F5B6C;
+    z-index: 1;
+}
+
+
+.top-entry span {
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    background-color: black;
+    border-radius: 50%;
+}
+
+.icons-menu {
+    width: 25%;
+    height: 85%;
+    transition: transform 0.3s ease;
+}
+
+.back {
+    width: 80%;
+    height: 50px;
+    margin: 0 auto 20px;
+    padding: 0;
+    background-color: #064F60;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.back:hover {
+    background-color: #0A6F84;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.back:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.back.clicked {
+    background-color: #4CAF50;
+    pointer-events: none; /* Блокируем клики во время анимации */
+}
+
+.back img.icons-menu {
+    width: 30px;
+    height: 30px;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+    transition: all 0.3s ease;
+}
+
+.back:hover img.icons-menu {
+    transform: scale(1.1) rotate(-10deg);
+}
+
+/* Стили для спиннера загрузки */
+.back .loading-spinner {
+    display: none;
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s linear infinite;
+    position: absolute;
+}
+
+.back.loading .icons-menu {
+    opacity: 0;
+}
+
+.back.loading .loading-spinner {
+    display: block;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
