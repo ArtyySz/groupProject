@@ -1,0 +1,336 @@
+body {
+    background-color: #83C9D9;
+}
+
+.menu {
+    width: 25vw;
+    top: 31px;
+    left: 18px;
+    bottom: 34px;
+    background-color: #166E82;
+    color: white;
+    padding: 20px 0;
+    position: fixed;
+    border-radius: 15px;
+}
+
+.menu-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    text-shadow:
+        0 0 4px #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+}
+
+.menu-button, .achievements-button, .top-button, .profile-button {
+    width: 80%;
+    height: 15%;
+    margin: 10px auto;
+    padding: 12px;
+    background-color: #064F60;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    color: #FFECEC;
+    font-size: 20px;
+    font-family: "Inter-ExtraBold", Helvetica;
+    font-weight: 400;
+    word-wrap: break-word;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    text-shadow:
+        0 0 4px #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+    border-radius: 30px;
+    border: 3px solid black;
+}
+
+.achievements-button {
+    background-color: #54b763;
+}
+
+.menu-button:hover, .achievements-button:hover, .top-button:hover, .profile-button:hover {
+    background-color: #0A6F84;
+    transform: translateY(-3px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #FFFFFF;
+}
+
+.achievements-button:hover {
+    background-color: #00CC1F;
+}
+
+.achievements-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.icons-menu {
+    width: 25%;
+    height: 85%;
+    transition: transform 0.3s ease;
+}
+
+.box {
+    top: 135px;
+    bottom: 34px;
+    margin-left: 27vw;
+    width: 71vw;
+    background-color: #166E82;
+    color: white;
+    padding: 20px 0;
+    border-radius: 15px;
+    position: fixed;
+    display: flex;
+    grid-template-columns: repeat(auto-fill);
+    gap: 10px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 500px;
+    padding: 140px 67px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.icon-achievements {
+    position: fixed;
+    width: 8vw;
+    height: 14vh;
+    left: 60%;
+    top: 8px;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+/* Обновленные стили для кнопки "Назад" */
+.back {
+    width: 80%;
+    height: 50px;
+    margin: 0 auto 20px;
+    padding: 0;
+    background-color: #064F60;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.back:hover {
+    background-color: #0A6F84;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.back:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.back.clicked {
+    background-color: #4CAF50;
+    pointer-events: none; /* Блокируем клики во время анимации */
+}
+
+.back img.icons-menu {
+    width: 30px;
+    height: 30px;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+    transition: all 0.3s ease;
+}
+
+.back:hover img.icons-menu {
+    transform: scale(1.1) rotate(-10deg);
+}
+
+/* Стили для спиннера загрузки */
+.back .loading-spinner {
+    display: none;
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s linear infinite;
+    position: absolute;
+}
+
+.back.loading .icons-menu {
+    opacity: 0;
+}
+
+.back.loading .loading-spinner {
+    display: block;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.achievements-container {
+    width: 60%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.achievement {
+    background-color: #064F60;
+    width: 60vh;
+    border-radius: 15px;
+    padding: 15px;
+    border: 3px solid black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.achievement-title {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #FFECEC;
+    text-shadow:
+        0 0 4px #000,
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+
+.achievement-description {
+    font-size: 14px;
+    color: #FFECEC;
+    text-shadow:
+        0 0 2px #000,
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+
+.progress-box {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 30%;
+    background-color: #064F60;
+    border-radius: 15px;
+    padding: 15px;
+    border: 3px solid black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.progress-title {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #FFECEC;
+    text-shadow:
+        0 0 4px #000,
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+
+.progress-count {
+    font-size: 24px;
+    font-weight: bold;
+    color: #FFECEC;
+    text-shadow:
+        0 0 4px #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+}
+
+.box {
+    top: 135px;
+    bottom: 34px;
+    margin-left: 27vw;
+    width: 71vw;
+    background-color: #166E82;
+    color: white;
+    padding: 20px 0;
+    border-radius: 15px;
+    position: fixed;
+    display: flex;
+    grid-template-columns: repeat(auto-fill);
+    gap: 10px;
+}
+
+.achievement {
+    background-color: #064F60;
+    width: 60vh;
+    border-radius: 15px;
+    padding: 15px;
+    border: 3px solid black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex; /* Добавляем flex-контейнер */
+    align-items: center; /* Выравниваем элементы по вертикали */
+    gap: 15px; /* Расстояние между изображением и текстом */
+}
+
+.achivImg {
+    width: 5vw;
+    height: 10vh;
+    object-fit: contain; /* Чтобы изображение сохраняло пропорции */
+    flex-shrink: 0; /* Запрещаем уменьшение изображения */
+    border-radius: 25%;
+}
+
+.achievement-text {
+    display: flex;
+    flex-direction: column; /* Текст в колонку */
+    flex-grow: 1; /* Текст занимает все оставшееся пространство */
+}
+
+.achievement-title {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #FFECEC;
+    text-shadow:
+        0 0 4px #000,
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+
+.achievement-description {
+    font-size: 14px;
+    color: #FFECEC;
+    text-shadow:
+        0 0 2px #000,
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
