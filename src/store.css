@@ -149,7 +149,6 @@ body {
 .icon-store {
     position: fixed;
     width: 8vw;
-    height: 14vh;
     left: 60%;
     top: 8px;
     transform: translateX(-50%);
