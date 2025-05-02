@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="profile.css">
     <title>Профиль</title>
 </head>
+<<<<<<< HEAD
     <body>
         <div class="menu">
             <button class="back"><img src="image/back.png" alt="" class="icons-menu"></button>
@@ -44,8 +45,70 @@
             </div>
         </div>
     <img src="image/profile.png" alt="" class="icon-achievements" draggable="false">
-    <div class="box">
+=======
+<body>
+    <div class="menu">
+        <button class="back"><img src="image/back.png" alt="" class="icons-menu"></button>
+        <div class="loading-spinner"></div>
+        <div class="menu-title">МЕНЮ</div>
+
+        <div class="menu-section">
+            <button class="menu-button-image" onclick="location.href='store.html'">
+                <span class="menu-label">Магазин</span>
+                <img src="image/brevno.png" alt="Магазин" class="brevno" draggable="false">
+                <img src="image/store.png" alt="" class="menu-icon">
+            </button>
+        </div>
+
+        <div class="menu-section">
+            <button class="menu-button-image" onclick="location.href='achievements.html'">
+                <span class="menu-label">Достижения</span>
+                <img src="image/brevno.png" alt="Достижения" class="brevno" draggable="false">
+                <img src="image/school.png" alt="" class="menu-icon">
+            </button>
+        </div>
+
+        <div class="menu-section">
+            <button class="menu-button-image" onclick="location.href='top.html'">
+                <span class="menu-label">Топ</span>
+                <img src="image/brevno.png" alt="Топ" class="brevno" draggable="false">
+                <img src="image/trophy.png" alt="" class="menu-icon">
+            </button>
+        </div>
+
+        <div class="menu-section">
+            <button class="menu-button-image" onclick="location.href='profile.html'">
+                <span class="menu-label profile">Профиль</span>
+                <img src="image/brevno.png" alt="Профиль" class="brevno profile" draggable="false">
+            </button>
+        </div>
     </div>
+
+>>>>>>> a44d94ee1cdccca515557559588cfa74acdf3d2b
+    <div class="box">
+        <div class="profile-shelf-container">
+            <!-- Первая полочка - ввод ника -->
+            <div class="profile-shelf name">
+                <div class="shelf-label">Никнейм:</div>
+                <div class="shelf-value" id="username-display">Гость</div>
+                <input type="text" class="shelf-input" id="username-input" placeholder="Введите ваш ник" maxlength="20" style="display: none;">
+                <button id="edit-username-btn" class="edit-btn">✏️</button>
+            </div>
+
+            <!-- Вторая полочка - количество кликов -->
+            <div class="profile-shelf click">
+                <div class="shelf-label">Кол-во кликов:</div>
+                <div class="shelf-value" id="click-counter">0</div>
+            </div>
+
+            <!-- Третья полочка - время в игре -->
+            <div class="profile-shelf time">
+                <div class="shelf-label">Время в игре:</div>
+                <div class="shelf-value" id="play-time">00:00:00</div>
+            </div>
+        </div>
+    </div>
+
     <script src="profile.js"></script>
 </body>
 </html>

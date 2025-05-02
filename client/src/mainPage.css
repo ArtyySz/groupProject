@@ -1,0 +1,264 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: #83C9D9;
+}
+
+/* Меню слева */
+.menu {
+    width: 25vw;
+    top: 31px;
+    left: 18px;
+    bottom: 34px;
+    background-color: #166E82;
+    color: white;
+    padding: 20px 0;
+    position: fixed;
+    border-radius: 15px;
+}
+
+.menu-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    text-shadow:
+        0 0 4px #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+}
+
+.menu-button {
+    width: 80%;
+    height: 15%;
+    margin: 10px auto;
+    padding: 12px;
+    background-color: #064F60;
+    border: none;
+    border-radius: 10px; /* Увеличим скругление углов */
+    cursor: pointer;
+    transition: all 0.3s ease; /* Плавный переход всех свойств */
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    color: #FFECEC;
+    font-size: 20px;
+    font-family: "Inter-ExtraBold", Helvetica;
+    font-weight: 400;
+    word-wrap: break-word;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень кнопки */
+    position: relative; /* Для псевдоэлемента */
+    overflow: hidden; /* Чтобы анимация не выходила за границы */
+    text-shadow: 
+        0 0 4px #000,
+        -2px -2px 0 #000,  
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+    border-radius: 30px;
+    border: 3px solid black;   
+}
+
+.menu-button:hover {
+    background-color: #0A6F84; /* Более светлый оттенок */
+    transform: translateY(-3px); /* Легкий подъем */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Увеличенная тень */
+    color: #FFFFFF; /* Более яркий текст */
+}
+
+.menu-button:active {
+    transform: translateY(1px); /* Эффект нажатия */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.health {
+    width: 10vw;
+    height: 7vh;
+    background: #166E82;
+    border-radius: 20px;
+    position: absolute;
+    left: 51%;
+    top: 25%;
+    display: flex;          /* Включаем flexbox */
+    justify-content: center; /* Горизонтальное центрирование */
+    align-items: center;    /* Вертикальное центрирование */
+    font-size: 20px;       /* Размер шрифта */
+    font-weight: bold;     /* Жирный шрифт */
+    font-family: Arial, sans-serif; /* Единый шрифт с остальным интерфейсом */
+    color: white;
+    font-family: "Inter-ExtraBold", Helvetica;
+    overflow: hidden; /* Скрываем текст, который не помещается */
+    text-overflow: clip; /* Обрезаем текст без многоточия */
+    font-size: min(20px, 2vw); /* Адаптивный размер шрифта */
+}
+
+.container-click {
+    width: 30vw;
+    height: 60vh;
+    background: rgba(22, 110, 130, 0.60);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+    position: absolute;
+    left: 42%;
+    top: 35%;
+    overflow: hidden; /* Добавьте это, чтобы обрезать содержимое */
+}
+
+/* Основное содержимое */
+.content {
+    margin-left: 200px;
+    padding: 20px;
+    width: calc(100% - 200px);
+}
+
+/* Верхняя панель с монетами */
+.coins-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.coins-count {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.coin-image {
+    width: 30px;
+    height: 30px;
+}
+
+/* Уровень */
+.level {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0;
+    font-weight: 800;
+    font-size: 30px;
+    color: white;
+    font-family: "Inter-ExtraBold", Helvetica;
+    text-shadow:
+        0 0 4px #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+}
+
+.icons-menu {
+    width: 25%;
+    height: 85%;
+    transition: transform 0.3s ease;
+}
+
+.menu-button:hover .icons-menu {
+    transform: scale(1.1); /* Легкое увеличение иконки */
+}
+
+.monster-area {
+    text-align: center;
+    margin-top: 40px;
+    width: 100%; /* Занимает всю ширину контейнера */
+    height: calc(100% - 40px); /* Высота контейнера минус отступ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.monster-image {
+    max-width: 100%; /* Ограничивает ширину изображения */
+    max-height: 100%; /* Ограничивает высоту изображения */
+    cursor: pointer;
+    transition: transform 0.1s;
+    object-fit: contain; /* Сохраняет пропорции изображения */
+}
+
+.monster-image:active {
+    transform: scale(0.95);
+}
+
+.damage-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.damage-text {
+    position: absolute;
+    color: red;
+    font-size: 24px;
+    font-weight: bold;
+    opacity: 1;
+    transition: all 0.8s ease-out;
+    text-shadow: 1px 1px 2px black;
+    user-select: none;
+    transform: translateY(0);
+}
+
+.reward-text {
+    transition: all 1s ease-out;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.achievement-popup {
+    position: fixed;
+    top: 20%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(6, 79, 96, 0.8);
+    border: 3px solid #166E82;
+    border-radius: 15px;
+    padding: 15px 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: white;
+    font-family: "Inter-ExtraBold", Helvetica;
+    text-shadow:
+        0 0 2px #000,
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+    backdrop-filter: blur(4px);
+    pointer-events: none;
+    min-width: 250px; /* Минимальная ширина */
+    max-width: 80%; /* Максимальная ширина */
+    box-sizing: border-box;
+}
+
+.achievement-popup.show {
+    opacity: 1;
+}
+
+.achievement-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.achievement-popup-text {
+    font-size: 16px;
+    font-weight: bold;
+    white-space: nowrap;
+    flex-grow: 1;
+}

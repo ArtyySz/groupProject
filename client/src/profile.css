@@ -1,0 +1,254 @@
+body {
+    background-color: #83C9D9;
+}
+
+.menu {
+    width: 25vw;
+    top: 31px;
+    left: 18px;
+    bottom: 34px;
+    background-color: #7B410E;
+    color: white;
+    padding: 20px 0;
+    position: fixed;
+    border-radius: 15px;
+}
+
+.menu-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    text-shadow:
+        0 0 4px #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+}
+
+.brevno-button {
+    width: 80%;
+    height: 120px;
+    margin: 10px auto;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    text-align: left; /* Выравнивание содержимого по левому краю */
+}
+
+.brevno-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('image/brevno.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    z-index: -1;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+    opacity: 1; /* Полная непрозрачность для обычных кнопок */
+    transition: opacity 0.3s ease;
+}
+
+.brevno-button:hover {
+    transform: translateY(-3px);
+}
+
+.brevno-button:active {
+    transform: translateY(1px);
+}
+
+.button-text {
+    font-size: 20px;
+    font-family: "Inter-ExtraBold", Helvetica;
+    font-weight: 400;
+    color: #FFECEC;
+    text-shadow:
+        0 0 4px #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+    margin-left: 40px; /* Отступ от левого края */
+    z-index: 1;
+    flex-grow: 1;
+    text-align: left; /* Выравнивание текста по левому краю */
+    padding-left: 10px; /* Дополнительный внутренний отступ */
+}
+
+.button-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+    margin-right: 15px; /* Отступ от правого края */
+    z-index: 1;
+    transition: transform 0.3s ease;
+    flex-shrink: 0; /* Запрещаем уменьшение иконки */
+}
+
+.brevno-button:hover .button-icon {
+    transform: scale(1.1);
+}
+
+.box {
+    top: 135px;
+    bottom: 34px;
+    margin-left: 27vw;
+    width: 71vw;
+    background-color: #166E82;
+    color: white;
+    padding: 20px 0;
+    border-radius: 15px;
+    position: fixed;
+    display: flex;
+    grid-template-columns: repeat(auto-fill);
+    gap: 10px;
+}
+
+.icon-achievements {
+    position: fixed;
+    width: 8vw;
+    height: 14vh;
+    left: 60%;
+    top: 8px;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+/* Стили для кнопки "Назад" */
+.back {
+    width: 80%;
+    height: 50px;
+    margin: 0 auto 20px;
+    padding: 0;
+    background-color: #5b310c;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 3px solid black;
+}
+
+.back:hover {
+    background-color: #65370f;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.back:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.back.clicked {
+    background-color: #4CAF50;
+    pointer-events: none;
+}
+
+.back img.icons-menu {
+    width: 30px;
+    height: 30px;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+    transition: all 0.3s ease;
+}
+
+.back:hover img.icons-menu {
+    transform: scale(1.1) rotate(-10deg);
+}
+
+/* Стили для спиннера загрузки */
+.back .loading-spinner {
+    display: none;
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s linear infinite;
+    position: absolute;
+}
+
+.back.loading .icons-menu {
+    opacity: 0;
+}
+
+.back.loading .loading-spinner {
+    display: block;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Стили для достижений (если они используются на странице) */
+.achievement {
+    background-color: #064F60;
+    width: 60vh;
+    border-radius: 15px;
+    padding: 15px;
+    border: 3px solid black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.achivImg {
+    width: 5vw;
+    height: 10vh;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: 25%;
+}
+
+.achievement-text {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.achievement-title {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #FFECEC;
+    text-shadow:
+        0 0 4px #000,
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+
+.achievement-description {
+    font-size: 14px;
+    color: #FFECEC;
+    text-shadow:
+        0 0 2px #000,
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+
+.profile-button::before {
+    opacity: 0.6; /* Полупрозрачность для кнопки профиля */
+    border-radius: 30px;
+}

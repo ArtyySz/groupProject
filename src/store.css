@@ -1,6 +1,10 @@
 body {
+<<<<<<< HEAD
     background-color: #38B2CA;
     /* На всю высоту viewport */
+=======
+    background-color: #1699B1; /* На всю высоту viewport */
+>>>>>>> a44d94ee1cdccca515557559588cfa74acdf3d2b
 }
 
 .menu {
