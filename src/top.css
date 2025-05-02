@@ -113,6 +113,8 @@ body {
         2px -2px 0 #000,
         -2px 2px 0 #000,
         2px 2px 0 #000;
+    color: white;
+    font-family: 'Inter', sans-serif;
 }
 
 .icons-menu {

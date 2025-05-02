@@ -1,40 +1,75 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="mainPage.css">
-    <title>clickerItalianoAnimal</title>
+    <title>clickerkerkerSahur</title>
 </head>
+
 <body>
-    <!-- Меню слева -->
+    <!-- Левое меню -->
     <div class="menu">
         <div class="menu-title">МЕНЮ</div>
-        <button class="menu-button" onclick="location.href='store.html'">Магазин <img src="image/store.png" alt="" class="icons-menu" draggable="false"></button>
-        <button class="menu-button" onclick="location.href='achievements.html'">Достижения <img src="image/school.png" alt="" class="icons-menu" draggable="false"></button>
-        <button class="menu-button" onclick="location.href='top.html'">Топ <img src="image/trophy.png" alt="" class="icons-menu" draggable="false"></button>
-        <button class="menu-button" onclick="location.href='profile.html'">Профиль <img src="image/userProfile.png" alt="" class="icons-menu" draggable="false"></button>
+
+        <div class="menu-section">
+            <button class="menu-button-images" onclick="location.href='store.html'">
+                <span class="menu-label">Магазин</span>
+                <img src="image/brevno.png" alt="Магазин" class="brevno" draggable="false">
+                <img src="image/store.png" alt="" class="menu-icon">
+            </button>
+        </div>
+
+        <div class="menu-section">
+            <button class="menu-button-images" onclick="location.href='achievements.html'">
+                <span class="menu-label">Достижения</span>
+                <img src="image/brevno.png" alt="Достижения" class="brevno" draggable="false">
+                <img src="image/school.png" alt="" class="menu-icon">
+            </button>
+        </div>
+
+        <div class="menu-section">
+            <button class="menu-button-images" onclick="location.href='top.html'">
+                <span class="menu-label">Топ</span>
+                <img src="image/brevno.png" alt="Топ" class="brevno" draggable="false">
+                <img src="image/trophy.png" alt="" class="menu-icon">
+            </button>
+        </div>
+
+        <div class="menu-section">
+            <button class="menu-button-images" onclick="location.href='profile.html'">
+                <span class="menu-label">Профиль</span>
+                <img src="image/brevno.png" alt="Профиль" class="brevno" draggable="false">
+                <img src="image/profile.png" alt="" class="menu-icon">
+            </button>
+        </div>
     </div>
 
-
     <!-- Основное содержимое -->
-    <div class="content">
-        <!-- Счетчик монет -->
+    <div class="main-content">
+        <!-- Монеты в правом верхнем углу -->
         <div class="coins-container">
             <div class="coins-count" id="coins">0</div>
             <img src="image/coin1.png" alt="Монета" class="coin-image" draggable="false">
         </div>
 
-        <!-- Уровень -->
+        <!-- Уровень по центру -->
         <div class="level" id="level">Уровень: 1</div>
-        <div class="health">Здоровье: 100</div>
+
+        <!-- Область монстра -->
         <div class="container-click">
             <div class="monster-area">
                 <img src="image/tralalelo.png" alt="Монстр" class="monster-image" id="monster" draggable="false">
                 <div class="damage-container" id="damageContainer"></div>
             </div>
         </div>
+
+        <!-- Здоровье -->
+        <div class="health" id="health">Здоровье: 100</div>
     </div>
+
     <script src="mainPage.js"></script>
 </body>
+
 </html>
