@@ -1,5 +1,16 @@
 body {
+<<<<<<< HEAD
+    margin: 0;
+    background-image: url('image/more.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+=======
     background-color: #AE7F65;
+>>>>>>> a44d94ee1cdccca515557559588cfa74acdf3d2b
 }
 
 .menu {
@@ -23,6 +34,8 @@ body {
     width: 100%;
     display: flex;
     justify-content: center;
+<<<<<<< HEAD
+=======
 }
 
 .menu-button-image {
@@ -94,6 +107,7 @@ body {
 
 .menu-button-image:hover {
     transform: scale(1.1);
+>>>>>>> a44d94ee1cdccca515557559588cfa74acdf3d2b
 }
 
 .menu-title {
@@ -109,6 +123,38 @@ body {
         2px 2px 0 #000;
 }
 
+<<<<<<< HEAD
+.menu-button-image {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.menu-button-images:hover:not(.achievement) {
+    transform: scale(1.1);
+}
+
+.brevno {
+    width: 20vw;
+    height: 12vh;
+    display: block;
+    object-fit: cover;
+}
+
+.menu-label {
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    font-size: clamp(12px, 1.2vw, 18px);
+    font-weight: bold;
+    font-family: "Inter-ExtraBold", Helvetica;
+=======
 .icons-menu {
     width: 25%;
     height: 85%;
@@ -201,6 +247,7 @@ body {
 .shelf-label {
     font-family: "Inter-ExtraBold", Helvetica;
     font-size: 20px;
+>>>>>>> a44d94ee1cdccca515557559588cfa74acdf3d2b
     color: #FFECEC;
     font-weight: bold;
     text-shadow:
@@ -209,6 +256,78 @@ body {
         2px -2px 0 #000,
         -2px 2px 0 #000,
         2px 2px 0 #000;
+<<<<<<< HEAD
+    z-index: 1;
+    text-align: left;
+    padding-left: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.menu-icon {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+    transition: transform 0.3s ease;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.menu-button-images {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0 auto;
+    display: block;
+    cursor: pointer;
+    width: fit-content;
+    height: fit-content;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.menu-button-images:hover {
+    transform: scale(1.1);
+}
+
+.menu-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    text-shadow:
+        0 0 4px #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+    color: white;
+    font-family: 'Inter', sans-serif;
+}
+
+
+.icons-menu {
+    width: 25%;
+    height: 85%;
+    transition: transform 0.3s ease;
+}
+
+/* НЕАКТИВНАЯ КНОПКА ДОСТИЖЕНИЙ */
+.brevno.profile {
+    opacity: 0.5;
+}
+
+.menu-label.profile {
+    opacity: 0.5;
+}
+
+
+=======
 }
 
 .shelf-input {
@@ -236,6 +355,7 @@ body {
     text-align: right;
 }
 
+>>>>>>> a44d94ee1cdccca515557559588cfa74acdf3d2b
 .back {
     width: 80%;
     height: 50px;
@@ -302,6 +422,16 @@ body {
 }
 
 @keyframes spin {
+<<<<<<< HEAD
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+=======
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+>>>>>>> a44d94ee1cdccca515557559588cfa74acdf3d2b
 }
