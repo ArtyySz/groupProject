@@ -15,7 +15,7 @@ function createWindow() {
   })
 
   mainWindow.loadFile(path.join(__dirname, 'mainPage.html'))
-  
+
   // Открываем DevTools в development режиме
   if (process.env.NODE_ENV === 'development') {
     mainWindow.webContents.openDevTools()
