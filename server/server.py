@@ -85,6 +85,80 @@ def save_game():
         logger.error(f"Error saving game: {str(e)}")
         return jsonify({"error": "Failed to save game data"}), 500
 
+class UserProfile(db.Model):
+    __tablename__ = 'user_profiles'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), nullable=False, default='Гость', unique=True)  # Уникальное имя
+    total_clicks = db.Column(db.Integer, default=0)
+    total_play_time = db.Column(db.Integer, default=0)
+    last_login = db.Column(db.DateTime, default=db.func.now())
+    username_set = db.Column(db.Boolean, default=False)
+
+@app.route('/profile/save', methods=['POST', 'OPTIONS'])  # Добавляем OPTIONS
+def save_profile():
+    if request.method == 'OPTIONS':
+        return jsonify({}), 200  # Возвращаем пустой ответ для OPTIONS
+
+    try:
+        data = request.get_json()
+        print("Received profile data:", data)  # Для отладки
+
+        profile = UserProfile.query.first()
+        if not profile:
+            profile = UserProfile()
+            db.session.add(profile)
+
+        # Всегда обновляем клики и время
+        if 'total_clicks' in data:
+            profile.total_clicks = max(0, int(data['total_clicks']))
+            print("Updating clicks to:", profile.total_clicks)
+
+        if 'total_play_time' in data:
+            profile.total_play_time = max(0, int(data['total_play_time']))
+
+        db.session.commit()
+        return jsonify({"status": "success", "saved_clicks": profile.total_clicks})
+    except Exception as e:
+        db.session.rollback()
+        logger.error(f"Error saving profile: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/profile/load', methods=['GET'])
+def load_profile():
+    try:
+        profile = UserProfile.query.first()
+        if not profile:
+            profile = UserProfile(username='Гость')
+            db.session.add(profile)
+            db.session.commit()
+
+        return jsonify({
+            "username": profile.username,
+            "total_clicks": profile.total_clicks,
+            "total_play_time": profile.total_play_time
+        })
+    except Exception as e:
+        logger.error(f"Error loading profile: {str(e)}")
+        return jsonify({"error": "Failed to load profile"}), 500
+
+@app.route('/profile/save-clicks', methods=['POST'])
+def save_clicks():
+    try:
+        data = request.get_json()
+        profile = UserProfile.query.first()
+        if not profile:
+            profile = UserProfile()
+            db.session.add(profile)
+
+        profile.total_clicks = max(0, int(data.get('clicks', 0)))
+        db.session.commit()
+        return jsonify({"status": "success", "clicks": profile.total_clicks})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+
 @app.cli.command()
 def init_db():
     """Initialize the database."""
