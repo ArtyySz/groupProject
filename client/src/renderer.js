@@ -1,14 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Элементы интерфейса
+    let profileLoaded = false;
+
+    const profileScript = document.createElement('script');
+    profileScript.src = 'profile.js';
+    profileScript.onload = async () => {
+        await window.ProfileAPI.loadProfile();
+        profileLoaded = true;
+    };
+
+    document.head.appendChild(profileScript);
+
+    // Основная игровая логика
     const monster = document.getElementById('monster');
     const coinsDisplay = document.getElementById('coins');
     const healthDisplay = document.querySelector('.health');
     const damageContainer = document.getElementById('damageContainer');
+    const levelDisplay = document.getElementById('level');
 
-    // Конфигурация
-    const API_URL = 'http://localhost:5001'; // Убедитесь, что Flask работает на этом порту!
+    const API_URL = 'http://localhost:5001';
 
-    // Состояние игры
     let gameState = {
         coins: 0,
         health: 100,
@@ -19,15 +29,15 @@ document.addEventListener('DOMContentLoaded', function() {
         damage_upgrade_price: 20,
         damage_upgrades: 0
     };
-    // Загрузка данных из БД
+
+
     async function loadGame() {
         try {
             const response = await fetch(`${API_URL}/load`);
             const data = await response.json();
 
-            // Важно: сохраняем ВСЕ поля, включая monster_health
             gameState = {
-                ...gameState,  // Старые значения (если новые не пришли)
+                ...gameState,
                 coins: data.coins ?? 0,
                 level: data.level ?? 1,
                 damage: data.damage ?? 1,
@@ -41,10 +51,10 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("Ошибка загрузки:", error);
         }
     }
+
     async function saveGame() {
         try {
-            console.log("Сохранение:", gameState);
-            const response = await fetch(`${API_URL}/save`, {
+            await fetch(`${API_URL}/save`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -56,28 +66,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     damage_upgrades: gameState.damage_upgrades
                 })
             });
-            const result = await response.json();
-            console.log("Результат сохранения:", result);
         } catch (error) {
             console.error('Ошибка сохранения:', error);
         }
     }
 
-
-    // Обновление интерфейса
     function updateUI() {
         coinsDisplay.textContent = gameState.coins;
         healthDisplay.textContent = `Здоровье: ${gameState.health}`;
-        document.getElementById('level').textContent = `Уровень: ${gameState.level}`;
+        levelDisplay.textContent = `Уровень: ${gameState.level}`;
     }
 
-    // Показывает анимацию урона
     function showDamageEffect(event, damage) {
-        // Получаем позицию клика относительно контейнера с монстром
-        const monsterRect = monster.getBoundingClientRect();
         const containerRect = damageContainer.getBoundingClientRect();
-
-        // Вычисляем координаты клика внутри контейнера урона
         const x = event.clientX - containerRect.left;
         const y = event.clientY - containerRect.top;
 
@@ -88,18 +89,10 @@ document.addEventListener('DOMContentLoaded', function() {
         damageText.style.top = `${y}px`;
         damageContainer.appendChild(damageText);
 
-        // Удаляем элемент после завершения анимации
-        setTimeout(() => {
-            damageText.remove();
-        }, 800);
+        setTimeout(() => damageText.remove(), 800);
     }
 
-    // Показывает анимацию награды
     function showRewardAnimation(reward, oldCoins) {
-        const container = document.querySelector('.monster-area');
-        const rect = container.getBoundingClientRect();
-
-        // Создаем элемент для отображения награды
         const rewardText = document.createElement('div');
         rewardText.className = 'reward-text';
         rewardText.textContent = `+${reward} монет!`;
@@ -107,55 +100,50 @@ document.addEventListener('DOMContentLoaded', function() {
         rewardText.style.top = '60%';
         rewardText.style.transform = 'translate(-50%, -50%)';
         rewardText.style.color = 'gold';
-        rewardText.style.fontSize = '28px';
-        rewardText.style.fontWeight = 'bold';
         damageContainer.appendChild(rewardText);
 
-        // Анимация всплывания
         setTimeout(() => {
             rewardText.style.transform = 'translate(-50%, -150px)';
             rewardText.style.opacity = '0';
         }, 10);
 
-        // Удаление через 2 секунды
         setTimeout(() => rewardText.remove(), 2000);
 
-        // Анимация увеличения счетчика монет
-        animateCoinCounter(oldCoins, gameState.coins);
+        animateCoinCounter(oldCoins, oldCoins + reward);
     }
 
     function animateCoinCounter(from, to) {
-        const coinsElement = document.getElementById('coins');
-        let current = from;
-        const duration = 1000; // 1 секунда
         const startTime = Date.now();
+        const duration = 1000;
 
-        function updateCounter() {
-            const elapsed = Date.now() - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            current = Math.floor(from + (to - from) * progress);
-            coinsElement.textContent = current;
+        const animate = () => {
+            const progress = Math.min((Date.now() - startTime) / duration, 1);
+            coinsDisplay.textContent = Math.floor(from + (to - from) * progress);
+            if (progress < 1) requestAnimationFrame(animate);
+        };
 
-            if (progress < 1) {
-                requestAnimationFrame(updateCounter);
-            }
-        }
-
-        requestAnimationFrame(updateCounter);
+        animate();
     }
-
 
     // Обработчик клика по монстру
     monster.addEventListener('click', async function(e) {
         if (!gameState.isAlive) return;
 
+        // 1. Учет кликов
+        if (window.ProfileAPI) {
+            if (!profileLoaded) {
+                await window.ProfileAPI.loadProfile();
+                profileLoaded = true;
+            }
+            window.ProfileAPI.incrementClickCounter();
+        }
+
+        // 2. Нанесение урона
         gameState.health -= gameState.damage;
         showDamageEffect(e, gameState.damage);
 
-        await saveGame();
-        updateUI();
-
-        if (gameState.health <= 0) {
+        // 3. Проверка смерти монстра
+        if (gameState.health <= 0 && gameState.isAlive) {
             gameState.isAlive = false;
             monster.src = "image/dead_monster1.png";
 
@@ -163,18 +151,18 @@ document.addEventListener('DOMContentLoaded', function() {
             const baseReward = 100;
             const levelBonus = 50 * (gameState.level - 1);
             const totalReward = baseReward + levelBonus;
-
-            // Сохраняем старые значения для анимации
             const oldCoins = gameState.coins;
+
+            // 4. Обновление состояния
             gameState.coins += totalReward;
             gameState.level += 1;
             gameState.max_health = Math.round(100 * (1 + (gameState.level - 1) * 0.2));
             gameState.health = gameState.max_health;
 
-            // Показываем анимацию награды
-            showRewardAnimation(totalReward, oldCoins);
+            // 5. Визуальные эффекты
+            showRewardAnimation(totalReward, oldCoins); // Анимация монет
 
-            // Показываем повышение уровня
+            // Анимация уровня
             const levelUpText = document.createElement('div');
             levelUpText.className = 'reward-text';
             levelUpText.textContent = `Уровень ${gameState.level}!`;
@@ -191,6 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             setTimeout(() => levelUpText.remove(), 2000);
 
+            // 6. Сохранение и восстановление монстра
             await saveGame();
             updateUI();
 
@@ -199,6 +188,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 monster.src = "image/tralalelo.png";
                 updateUI();
             }, 2000);
+        } else {
+            // 7. Обычный клик (без убийства)
+            await saveGame();
+            updateUI();
         }
     });
 
@@ -206,14 +199,6 @@ document.addEventListener('DOMContentLoaded', function() {
         await saveGame();
     });
 
-    // Для кнопок меню добавим обработчик
-    document.querySelectorAll('.menu-button').forEach(button => {
-        button.addEventListener('click', async (e) => {
-            e.preventDefault();
-            await saveGame();
-            window.location.href = button.getAttribute('onclick').match(/'(.*?)'/)[1];
-        });
-    });
-    // Запуск игры
-    loadGame(); // Используем единую функцию загрузки
+    // Инициализация игры
+    loadGame();
 });
