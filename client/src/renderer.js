@@ -17,28 +17,41 @@ document.addEventListener('DOMContentLoaded', function() {
         damage: 1,
         isAlive: true,
         damage_upgrade_price: 20,
-        damage_upgrades: 0
+        damage_upgrades: 0,
+        coins_per_second: 0,
+        cps_upgrades: 0,
+        cps_upgrade_price: 20,
+
     };
     // Загрузка данных из БД
     async function loadGame() {
         try {
             const response = await fetch(`${API_URL}/load`);
             const data = await response.json();
-
-            // Важно: сохраняем ВСЕ поля, включая monster_health
+            
+            if (data.error) {
+                console.error("Server error:", data.error);
+                return;
+            }
+    
+            // Важно: сохраняем ВСЕ поля
             gameState = {
-                ...gameState,  // Старые значения (если новые не пришли)
-                coins: data.coins ?? 0,
-                level: data.level ?? 1,
-                damage: data.damage ?? 1,
-                health: data.monster_health ?? gameState.max_health,
-                damage_upgrade_price: data.damage_upgrade_price ?? 20,
-                damage_upgrades: data.damage_upgrades ?? 0
+                coins: data.coins,
+                level: data.level,
+                damage: data.damage,
+                health: data.monster_health,
+                max_health: 100 * (1 + (data.level - 1) * 0.2),
+                isAlive: true,
+                damage_upgrade_price: data.damage_upgrade_price,
+                damage_upgrades: data.damage_upgrades,
+                coins_per_second: data.coins_per_second,
+                cps_upgrades: data.cps_upgrades,
+                cps_upgrade_price: data.cps_upgrade_price
             };
-
+    
             updateUI();
         } catch (error) {
-            console.error("Ошибка загрузки:", error);
+            console.error("Error loading game:", error);
         }
     }
     async function saveGame() {
@@ -53,7 +66,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     damage: gameState.damage,
                     monster_health: gameState.health,
                     damage_upgrade_price: gameState.damage_upgrade_price,
-                    damage_upgrades: gameState.damage_upgrades
+                    damage_upgrades: gameState.damage_upgrades,
+                    coins_per_second: gameState.coins_per_second,
+                    cps_upgrades: gameState.cps_upgrades,
+                    cps_upgrade_price: gameState.cps_upgrade_price
                 })
             });
             const result = await response.json();
@@ -216,4 +232,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     // Запуск игры
     loadGame(); // Используем единую функцию загрузки
+    setInterval(() => {
+        gameState.coins += gameState.coins_per_second;
+        updateUI();
+    }, 1);
 });
