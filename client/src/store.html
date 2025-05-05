@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="store.css">
+    <title>clickerItalianoAnimal</title>
+</head>
+<body>
+    <div class="menu">
+        <button class="back"><img src="image/back.png" alt="" class="icons-menu"></button>
+        <div class="loading-spinner"></div>
+        <div class="menu-title">МЕНЮ</div>
+
+        <div class="menu-section">
+            <button class="menu-button-image" onclick="location.href='store.html'">
+                <span class="menu-label magazin">Магазин</span>
+                <img src="image/brevno.png" alt="Магазин" class="brevno magazin" draggable="false">
+            </button>
+        </div>
+
+        <div class="menu-section">
+            <button class="menu-button-image" onclick="location.href='achievements.html'">
+                <span class="menu-label">Достижения</span>
+                <img src="image/brevno.png" alt="Достижения" class="brevno" draggable="false">
+                <img src="image/school.png" alt="" class="menu-icon">
+            </button>
+        </div>
+
+        <div class="menu-section">
+            <button class="menu-button-image" onclick="location.href='top.html'">
+                <span class="menu-label">Топ</span>
+                <img src="image/brevno.png" alt="Топ" class="brevno" draggable="false">
+                <img src="image/trophy.png" alt="" class="menu-icon">
+            </button>
+        </div>
+
+        <div class="menu-section">
+            <button class="menu-button-image" onclick="location.href='profile.html'">
+                <span class="menu-label">Профиль</span>
+                <img src="image/brevno.png" alt="Профиль" class="brevno" draggable="false">
+                <img src="image/userProfile.png" alt="" class="menu-icon">
+            </button>
+        </div>
+    </div>
+
+    <div class="coin-display">
+        <span id="player-coins">0</span>
+        <img src="image/coinstore.png" alt="Coins" class="coin-icon-display">
+    </div>
+    <div class="box">
+        <div class="store-background"></div>
+        <img src="image/magaz.png" alt="" class="magaz" draggable="false">
+        <div class="grid-container">
+            <button class="item" onclick="handleClick('+1 за клик')" data-owned="0">
+                <p>+1 урон за клик</p>
+                <img src="image/finger.png" alt="+1 за клик" draggable="false">
+                <div class="price-container">
+                    <p id="damage-price">20</p> <!-- Добавлен ID для цены -->
+                    <img src="image/coinstore.png" alt="" class="coin-icon">
+                </div>
+            </button>
+
+            <button class="item" onclick="handleClick('+1 в секунду')">
+                <p>+1 монета в секунду</p>
+                <img src="image/coins.png" alt="+1 в секунду" draggable="false">
+                <div class="price-container">
+                    <p class="price-value" id="cps-price">20</p>
+                    <img src="image/coinstore.png" alt="" class="coin-icon">
+                </div>
+            </button>
+        </div>
+    </div>
+    <script src="store.js"></script>
+</body>
+</html>
