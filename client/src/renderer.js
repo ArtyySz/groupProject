@@ -1,24 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
-    let profileLoaded = false;
-
+    // Загрузка профиля
     const profileScript = document.createElement('script');
     profileScript.src = 'profile.js';
-    profileScript.onload = async () => {
-        await window.ProfileAPI.loadProfile();
-        profileLoaded = true;
-    };
-
     document.head.appendChild(profileScript);
 
-    // Основная игровая логика
+    // Элементы интерфейса
     const monster = document.getElementById('monster');
     const coinsDisplay = document.getElementById('coins');
     const healthDisplay = document.querySelector('.health');
     const damageContainer = document.getElementById('damageContainer');
     const levelDisplay = document.getElementById('level');
 
+    // Конфигурация
     const API_URL = 'http://localhost:5001';
 
+    // Состояние игры
     let gameState = {
         coins: 0,
         health: 100,
@@ -27,34 +23,46 @@ document.addEventListener('DOMContentLoaded', function() {
         damage: 1,
         isAlive: true,
         damage_upgrade_price: 20,
-        damage_upgrades: 0
+        damage_upgrades: 0,
+        coins_per_second: 0,
+        cps_upgrades: 0,
+        cps_upgrade_price: 20
     };
 
-
+    // Загрузка данных из БД
     async function loadGame() {
         try {
             const response = await fetch(`${API_URL}/load`);
             const data = await response.json();
 
+            if (data.error) {
+                console.error("Server error:", data.error);
+                return;
+            }
+
             gameState = {
-                ...gameState,
-                coins: data.coins ?? 0,
-                level: data.level ?? 1,
-                damage: data.damage ?? 1,
-                health: data.monster_health ?? gameState.max_health,
-                damage_upgrade_price: data.damage_upgrade_price ?? 20,
-                damage_upgrades: data.damage_upgrades ?? 0
+                coins: data.coins,
+                level: data.level,
+                damage: data.damage,
+                health: data.monster_health,
+                max_health: 100 * (1 + (data.level - 1) * 0.2),
+                isAlive: true,
+                damage_upgrade_price: data.damage_upgrade_price,
+                damage_upgrades: data.damage_upgrades,
+                coins_per_second: data.coins_per_second || 0,
+                cps_upgrades: data.cps_upgrades || 0,
+                cps_upgrade_price: data.cps_upgrade_price || 20
             };
 
             updateUI();
         } catch (error) {
-            console.error("Ошибка загрузки:", error);
+            console.error("Error loading game:", error);
         }
     }
 
     async function saveGame() {
         try {
-            await fetch(`${API_URL}/save`, {
+            const response = await fetch(`${API_URL}/save`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -63,22 +71,31 @@ document.addEventListener('DOMContentLoaded', function() {
                     damage: gameState.damage,
                     monster_health: gameState.health,
                     damage_upgrade_price: gameState.damage_upgrade_price,
-                    damage_upgrades: gameState.damage_upgrades
+                    damage_upgrades: gameState.damage_upgrades,
+                    coins_per_second: gameState.coins_per_second,
+                    cps_upgrades: gameState.cps_upgrades,
+                    cps_upgrade_price: gameState.cps_upgrade_price
                 })
             });
+            return await response.json();
         } catch (error) {
             console.error('Ошибка сохранения:', error);
+            return { error: error.message };
         }
     }
 
+    // Обновление интерфейса
     function updateUI() {
         coinsDisplay.textContent = gameState.coins;
         healthDisplay.textContent = `Здоровье: ${gameState.health}`;
         levelDisplay.textContent = `Уровень: ${gameState.level}`;
     }
 
+    // Показывает анимацию урона
     function showDamageEffect(event, damage) {
+        const monsterRect = monster.getBoundingClientRect();
         const containerRect = damageContainer.getBoundingClientRect();
+
         const x = event.clientX - containerRect.left;
         const y = event.clientY - containerRect.top;
 
@@ -92,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => damageText.remove(), 800);
     }
 
+    // Показывает анимацию награды
     function showRewardAnimation(reward, oldCoins) {
         const rewardText = document.createElement('div');
         rewardText.className = 'reward-text';
@@ -100,6 +118,8 @@ document.addEventListener('DOMContentLoaded', function() {
         rewardText.style.top = '60%';
         rewardText.style.transform = 'translate(-50%, -50%)';
         rewardText.style.color = 'gold';
+        rewardText.style.fontSize = '28px';
+        rewardText.style.fontWeight = 'bold';
         damageContainer.appendChild(rewardText);
 
         setTimeout(() => {
@@ -108,8 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 10);
 
         setTimeout(() => rewardText.remove(), 2000);
-
-        animateCoinCounter(oldCoins, oldCoins + reward);
+        animateCoinCounter(oldCoins, gameState.coins);
     }
 
     function animateCoinCounter(from, to) {
@@ -121,7 +140,6 @@ document.addEventListener('DOMContentLoaded', function() {
             coinsDisplay.textContent = Math.floor(from + (to - from) * progress);
             if (progress < 1) requestAnimationFrame(animate);
         };
-
         animate();
     }
 
@@ -129,40 +147,30 @@ document.addEventListener('DOMContentLoaded', function() {
     monster.addEventListener('click', async function(e) {
         if (!gameState.isAlive) return;
 
-        // 1. Учет кликов
+        // Учет кликов в профиле
         if (window.ProfileAPI) {
-            if (!profileLoaded) {
-                await window.ProfileAPI.loadProfile();
-                profileLoaded = true;
-            }
             window.ProfileAPI.incrementClickCounter();
         }
 
-        // 2. Нанесение урона
         gameState.health -= gameState.damage;
         showDamageEffect(e, gameState.damage);
 
-        // 3. Проверка смерти монстра
-        if (gameState.health <= 0 && gameState.isAlive) {
+        if (gameState.health <= 0) {
             gameState.isAlive = false;
             monster.src = "image/dead_monster1.png";
 
-            // Расчет награды
             const baseReward = 100;
             const levelBonus = 50 * (gameState.level - 1);
             const totalReward = baseReward + levelBonus;
             const oldCoins = gameState.coins;
 
-            // 4. Обновление состояния
             gameState.coins += totalReward;
             gameState.level += 1;
             gameState.max_health = Math.round(100 * (1 + (gameState.level - 1) * 0.2));
             gameState.health = gameState.max_health;
 
-            // 5. Визуальные эффекты
-            showRewardAnimation(totalReward, oldCoins); // Анимация монет
+            showRewardAnimation(totalReward, oldCoins);
 
-            // Анимация уровня
             const levelUpText = document.createElement('div');
             levelUpText.className = 'reward-text';
             levelUpText.textContent = `Уровень ${gameState.level}!`;
@@ -172,31 +180,34 @@ document.addEventListener('DOMContentLoaded', function() {
             levelUpText.style.fontSize = '32px';
             damageContainer.appendChild(levelUpText);
 
-            setTimeout(() => {
-                levelUpText.style.transform = 'translate(-50%, -200px)';
-                levelUpText.style.opacity = '0';
-            }, 10);
-
             setTimeout(() => levelUpText.remove(), 2000);
-
-            // 6. Сохранение и восстановление монстра
             await saveGame();
-            updateUI();
 
             setTimeout(() => {
                 gameState.isAlive = true;
                 monster.src = "image/tralalelo.png";
                 updateUI();
             }, 2000);
-        } else {
-            // 7. Обычный клик (без убийства)
-            await saveGame();
-            updateUI();
         }
+
+        await saveGame();
+        updateUI();
     });
 
+    // Пассивный доход
+    setInterval(() => {
+        if (gameState.coins_per_second > 0) {
+            gameState.coins += gameState.coins_per_second;
+            updateUI();
+        }
+    }, 1000);
+
+    // Сохранение при закрытии
     window.addEventListener('beforeunload', async () => {
         await saveGame();
+        if (window.ProfileAPI) {
+            await window.ProfileAPI.saveProfile();
+        }
     });
 
     // Инициализация игры

@@ -35,6 +35,9 @@ class GameSave(db.Model):
     monster_health = db.Column(db.Integer, default=100)
     damage_upgrade_price = db.Column(db.Integer, default=20)
     damage_upgrades = db.Column(db.Integer, default=0)
+    coins_per_second = db.Column(db.Integer, default=0)
+    cps_upgrades = db.Column(db.Integer, default=0)
+    cps_upgrade_price = db.Column(db.Integer, default=20)
 
 @app.route('/load', methods=['GET'])
 def load_game():
@@ -52,12 +55,15 @@ def load_game():
             "damage": save.damage,
             "monster_health": save.monster_health,
             "damage_upgrade_price": save.damage_upgrade_price,
-            "damage_upgrades": save.damage_upgrades
+            "damage_upgrades": save.damage_upgrades,
+            "coins_per_second": save.coins_per_second,
+            "cps_upgrades": save.cps_upgrades,
+            "cps_upgrade_price": save.cps_upgrade_price
         })
-
     except Exception as e:
         logger.error(f"Error loading game: {str(e)}")
         return jsonify({"error": "Failed to load game data"}), 500
+
 
 @app.route('/save', methods=['POST'])
 def save_game():
@@ -68,22 +74,23 @@ def save_game():
         if not save:
             save = GameSave()
 
-        # Обновляем данные с проверками
         save.coins = max(0, int(data.get('coins', save.coins)))
         save.level = max(1, int(data.get('level', save.level)))
         save.damage = max(1, int(data.get('damage', save.damage)))
         save.monster_health = max(1, int(data.get('monster_health', save.monster_health)))
         save.damage_upgrade_price = max(10, int(data.get('damage_upgrade_price', save.damage_upgrade_price)))
         save.damage_upgrades = max(0, int(data.get('damage_upgrades', save.damage_upgrades)))
+        save.coins_per_second = max(0, int(data.get('coins_per_second', save.coins_per_second)))
+        save.cps_upgrades = max(0, int(data.get('cps_upgrades', save.cps_upgrades)))
+        save.cps_upgrade_price = max(10, int(data.get('cps_upgrade_price', save.cps_upgrade_price)))
 
         db.session.add(save)
         db.session.commit()
         return jsonify({"status": "success"})
-
     except Exception as e:
         db.session.rollback()
         logger.error(f"Error saving game: {str(e)}")
-        return jsonify({"error": "Failed to save game data"}), 500
+        return jsonify({"error": str(e)}), 500
 
 class UserProfile(db.Model):
     __tablename__ = 'user_profiles'
