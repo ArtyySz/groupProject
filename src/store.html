@@ -1,34 +1,77 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="store.css">
-    <title>clickerItalianoAnimal</title>
+    <title>Магазин</title>
 </head>
+
 <body>
     <div class="menu">
         <button class="back"><img src="image/back.png" alt="" class="icons-menu"></button>
         <div class="loading-spinner"></div>
         <div class="menu-title">МЕНЮ</div>
-        <button class="menu-button">Магазин </button>
-        <button class="achievements-button" onclick="location.href='achievements.html'">Достижения <img src="image/school.png" alt="" class="icons-menu" draggable="false"></button>
-        <button class="top-button" onclick="location.href='top.html'">Топ <img src="image/trophy.png" alt="" class="icons-menu" draggable="false"></button>
-        <button class="profile-button" onclick="location.href='profile.html'">Профиль <img src="image/profile.png" alt="" class="icons-menu" draggable="false"></button>
-    </div>
-    <img src="image/store.png" alt="" class="icon-store" draggable="false">
-    <div class="box">
-        <div class="grid-container">
-            <button class="item" onclick="handleClick('+1 за клик')">
-                <img src="image/click.jpg" alt="+1 за клик" draggable="false">
-                <p>+1 урон за клик</p>
+
+        <div class="menu-section">
+            <button class="menu-button-image store">
+                <span class="menu-label store">Магазин</span>
+                <img src="image/brevno.png" alt="Магазин" class="brevno magazin" draggable="false">
             </button>
-            <button class="item" onclick="handleClick('+1 в секунду')">
-                <img src="image/rich.png" alt="+1 в секунду" draggable="false">
-                <p>+1 монета в секунду</p>
+        </div>
+
+        <div class="menu-section">
+            <button class="menu-button-images" onclick="location.href='achievements.html'">
+                <span class="menu-label">Достижения</span>
+                <img src="image/brevno.png" alt="Достижения" class="brevno" draggable="false">
+                <img src="image/school.png" alt="" class="menu-icon">
+            </button>
+        </div>
+
+        <div class="menu-section">
+            <button class="menu-button-images" onclick="location.href='top.html'">
+                <span class="menu-label">Топ</span>
+                <img src="image/brevno.png" alt="Топ" class="brevno" draggable="false">
+                <img src="image/trophy.png" alt="" class="menu-icon">
+            </button>
+        </div>
+
+        <div class="menu-section">
+            <button class="menu-button-images" onclick="location.href='profile.html'">
+                <span class="menu-label">Профиль</span>
+                <img src="image/brevno.png" alt="Профиль" class="brevno" draggable="false">
+                <img src="image/userProfile.png" alt="" class="menu-icon">
             </button>
         </div>
     </div>
+
+
+    <div class="box">
+        <div class="store-background"></div>
+        <img src="image/magaz.png" alt="" class="magaz" draggable="false">
+        <div class="grid-container">
+            <button class="item" onclick="handleClick('+1 за клик')">
+                <p>+1 урон за клик</p>
+                <img src="image/finger.png" alt="+1 за клик" draggable="false">
+                <div class="price-container">
+                    <p>20</p>
+                    <img src="image/coinstore.png" alt="" class="coin-icon">
+                </div>
+            </button>
+
+            <button class="item" onclick="handleClick('+1 в секунду')">
+                <p>+1 монета в секунду</p>
+                <img src="image/coins.png" alt="+1 в секунду" draggable="false">
+                <div class="price-container">
+                    <p>20</p>
+                    <img src="image/coinstore.png" alt="" class="coin-icon">
+                </div>
+            </button>
+        </div>
+    </div>
+
     <script src="store.js"></script>
 </body>
+
 </html>
