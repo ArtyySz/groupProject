@@ -1,28 +1,22 @@
 body {
+    font-family: Arial, sans-serif;
     margin: 0;
-    background-image: url('image/more.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-attachment: fixed;
-    font-family: 'Inter', sans-serif;
-    overflow: hidden;
+    padding: 0;
+    display: flex;
+    background-color: #83C9D9;
 }
 
+/* Меню слева */
 .menu {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    bottom: 20px;
     width: 25vw;
-    min-width: 280px;
-    background-image: url('image/wood2.jpg');
-    background-size: cover;
-    border-radius: 20px;
-    padding: 20px 0;
-    overflow-y: auto;
-    z-index: 10;
+    top: 31px;
+    left: 18px;
+    bottom: 34px;
+    background-color: #166E82;
     color: white;
+    padding: 20px 0;
+    position: fixed;
+    border-radius: 15px;
 }
 
 .menu-title {
@@ -38,103 +32,102 @@ body {
         2px 2px 0 #000;
 }
 
-.menu-section {
-    position: relative;
-    text-align: center;
-    margin-bottom: 20px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.menu-button-images {
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0 auto;
-    display: block;
-    cursor: pointer;
-    width: fit-content;
-    height: fit-content;
-    transition: transform 0.3s ease;
-    position: relative;
-}
-
-.menu-button-images:hover {
-    transform: scale(1.1);
-}
-
-.brevno {
-    width: 20vw;
-    height: 12vh;
-    display: block;
-    object-fit: cover;
-}
-
-.menu-label {
-    position: absolute;
-    top: 50%;
-    left: 55%;
-    transform: translate(-50%, -50%);
+.menu-button {
     width: 80%;
-    font-size: clamp(12px, 1.2vw, 18px);
-    font-weight: bold;
-    font-family: "Inter-ExtraBold", Helvetica;
+    height: 15%;
+    margin: 10px auto;
+    padding: 12px;
+    background-color: #064F60;
+    border: none;
+    border-radius: 10px; /* Увеличим скругление углов */
+    cursor: pointer;
+    transition: all 0.3s ease; /* Плавный переход всех свойств */
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
     color: #FFECEC;
-    text-shadow:
+    font-size: 20px;
+    font-family: "Inter-ExtraBold", Helvetica;
+    font-weight: 400;
+    word-wrap: break-word;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень кнопки */
+    position: relative; /* Для псевдоэлемента */
+    overflow: hidden; /* Чтобы анимация не выходила за границы */
+    text-shadow: 
         0 0 4px #000,
-        -2px -2px 0 #000,
+        -2px -2px 0 #000,  
         2px -2px 0 #000,
         -2px 2px 0 #000,
         2px 2px 0 #000;
-    z-index: 1;
-    text-align: left;
-    padding-left: 20px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    border-radius: 30px;
+    border: 3px solid black;   
 }
 
-.menu-icon {
+.menu-button:hover {
+    background-color: #0A6F84; /* Более светлый оттенок */
+    transform: translateY(-3px); /* Легкий подъем */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Увеличенная тень */
+    color: #FFFFFF; /* Более яркий текст */
+}
+
+.menu-button:active {
+    transform: translateY(1px); /* Эффект нажатия */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.health {
+    width: 10vw;
+    height: 7vh;
+    background: #166E82;
+    border-radius: 20px;
     position: absolute;
-    width: 30px;
-    height: 30px;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
-    z-index: 2;
-    pointer-events: none;
+    left: 51%;
+    top: 25%;
+    display: flex;          /* Включаем flexbox */
+    justify-content: center; /* Горизонтальное центрирование */
+    align-items: center;    /* Вертикальное центрирование */
+    font-size: 20px;       /* Размер шрифта */
+    font-weight: bold;     /* Жирный шрифт */
+    font-family: Arial, sans-serif; /* Единый шрифт с остальным интерфейсом */
+    color: white;
+    font-family: "Inter-ExtraBold", Helvetica;
+    overflow: hidden; /* Скрываем текст, который не помещается */
+    text-overflow: clip; /* Обрезаем текст без многоточия */
+    font-size: min(20px, 2vw); /* Адаптивный размер шрифта */
+}
+
+.container-click {
+    width: 30vw;
+    height: 60vh;
+    background: rgba(22, 110, 130, 0.60);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+    position: absolute;
+    left: 42%;
+    top: 35%;
+    overflow: hidden; /* Добавьте это, чтобы обрезать содержимое */
 }
 
 /* Основное содержимое */
-.main-content {
-    margin-left: 26vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    box-sizing: border-box;
-    padding-top: 20px;
-    padding-right: 30px;
+.content {
+    margin-left: 200px;
+    padding: 20px;
+    width: calc(100% - 200px);
 }
 
-/* Монетки в правом верхнем углу */
+/* Верхняя панель с монетами */
 .coins-container {
-    position: absolute;
-    top: 20px;
-    right: 30px;
     display: flex;
+    justify-content: flex-end;
     align-items: center;
-    z-index: 5;
+    margin-bottom: 20px;
 }
 
 .coins-count {
     font-size: 24px;
     font-weight: bold;
-    color: white;
-    text-shadow: 0 0 4px #000;
     margin-right: 10px;
 }
 
@@ -143,12 +136,16 @@ body {
     height: 30px;
 }
 
-/* Центрированный уровень */
+/* Уровень */
 .level {
-    font-size: 30px;
+    text-align: center;
+    font-size: 24px;
     font-weight: bold;
+    margin: 20px 0;
+    font-weight: 800;
+    font-size: 30px;
     color: white;
-    margin: 50px 0 10px;
+    font-family: "Inter-ExtraBold", Helvetica;
     text-shadow:
         0 0 4px #000,
         -2px -2px 0 #000,
@@ -157,43 +154,38 @@ body {
         2px 2px 0 #000;
 }
 
-/* Центр монстра */
-.container-click {
-    width: 35vw;
-    height: 60vh;
-    background: rgba(22, 110, 130, 0.60);
-    border-radius: 25px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    left: 50%;
-    top: 55%;
-    transform: translate(-50%, -50%);
+.icons-menu {
+    width: 25%;
+    height: 85%;
+    transition: transform 0.3s ease;
+}
+
+.menu-button:hover .icons-menu {
+    transform: scale(1.1); /* Легкое увеличение иконки */
 }
 
 .monster-area {
-    width: 100%;
-    height: 100%;
+    text-align: center;
+    margin-top: 40px;
+    width: 100%; /* Занимает всю ширину контейнера */
+    height: calc(100% - 40px); /* Высота контейнера минус отступ */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .monster-image {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 100%; /* Ограничивает ширину изображения */
+    max-height: 100%; /* Ограничивает высоту изображения */
     cursor: pointer;
-    object-fit: contain;
     transition: transform 0.1s;
+    object-fit: contain; /* Сохраняет пропорции изображения */
 }
 
 .monster-image:active {
     transform: scale(0.95);
 }
 
-/* Урон и анимации */
 .damage-container {
     position: absolute;
     top: 0;
@@ -232,8 +224,41 @@ body {
     border-radius: 15px;
     padding: 15px 25px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
     color: white;
-    text-align: center;
+    font-family: "Inter-ExtraBold", Helvetica;
+    text-shadow:
+        0 0 2px #000,
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+    backdrop-filter: blur(4px);
+    pointer-events: none;
+    min-width: 250px; /* Минимальная ширина */
+    max-width: 80%; /* Максимальная ширина */
+    box-sizing: border-box;
+}
+
+.achievement-popup.show {
+    opacity: 1;
+}
+
+.achievement-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.achievement-popup-text {
+    font-size: 16px;
     font-weight: bold;
-    font-size: 18px;
+    white-space: nowrap;
+    flex-grow: 1;
 }
