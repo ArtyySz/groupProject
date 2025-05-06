@@ -56,7 +56,7 @@ window.ProfileAPI = {
             e.preventDefault();
             e.currentTarget.classList.add('clicked', 'loading');
 
-            // Даем время на сохранение
+            
             await new Promise(resolve => setTimeout(resolve, 300));
             await this.saveProfile();
 
@@ -65,14 +65,14 @@ window.ProfileAPI = {
     },
 
     incrementClickCounter: async function() {
-        // Сначала загружаем текущее состояние
+        
         await this.loadProfile();
 
-        // Увеличиваем счетчик
+        
         profileState.totalClicks++;
         this.updateProfileUI();
 
-        // Сохраняем
+        
         await this.saveProfile();
     },
 
@@ -133,14 +133,14 @@ window.ProfileAPI = {
     startPlayTimeTracker: function() {
         if (this.playTimeInterval) clearInterval(this.playTimeInterval);
 
-        // Корректный расчет времени с учетом пауз
+        
         const startTime = Date.now() - (profileState.totalPlayTime * 1000);
 
         this.playTimeInterval = setInterval(() => {
             profileState.totalPlayTime = Math.floor((Date.now() - startTime) / 1000);
             this.updateProfileUI();
 
-            // Сохраняем каждую минуту
+           
             if (profileState.totalPlayTime % 60 === 0) {
                 this.saveProfile();
             }
@@ -179,7 +179,6 @@ window.ProfileAPI = {
     }
 };
 
-// Инициализация
 document.addEventListener('DOMContentLoaded', () => {
     window.ProfileAPI.init();
 });

@@ -1,4 +1,4 @@
-* { /* запрещение выделения */
+* { 
     -webkit-tap-highlight-color: transparent;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -143,13 +143,13 @@ body {
 }
 
 .brevno.top {
-    opacity: 0.5; /* Значение от 0 (полностью прозрачный) до 1 (полностью непрозрачный) */
-    transition: opacity 0.3s ease; /* Плавное изменение прозрачности */
+    opacity: 0.5;
+    transition: opacity 0.3s ease; 
 }
 
 .menu-label.top {
-    opacity: 0.5; /* Значение от 0 (полностью прозрачный) до 1 (полностью непрозрачный) */
-    transition: opacity 0.3s ease; /* Плавное изменение прозрачности */
+    opacity: 0.5; 
+    transition: opacity 0.3s ease; 
 }
 
 .top-header {

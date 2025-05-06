@@ -1,4 +1,4 @@
-* { /* запрещение выделения */
+* { 
     -webkit-tap-highlight-color: transparent;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -201,7 +201,7 @@ body {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
-/* Общие стили для цен */
+
 .price-value {
     font-size: 24px;
     margin: 0;

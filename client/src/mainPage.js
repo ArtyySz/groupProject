@@ -1,14 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Элементы интерфейса
     const monster = document.getElementById('monster');
     const coinsDisplay = document.getElementById('coins');
     const healthDisplay = document.querySelector('.health');
     const damageContainer = document.getElementById('damageContainer');
 
-    // Конфигурация
     const API_URL = 'http://localhost:5000';
 
-    // Состояние игры
+    
     let gameState = {
         coins: 0,
         health: 100,
@@ -17,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
         isAlive: true
     };
 
-    // Инициализация игры
+    
     async function initGame() {
         try {
             const response = await fetch(`${API_URL}/load`);
@@ -35,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Сохранение игры
+   
     async function saveGame() {
         try {
             await fetch(`${API_URL}/save`, {
@@ -52,24 +50,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Обновление интерфейса
+   
     function updateUI() {
         coinsDisplay.textContent = gameState.coins;
         healthDisplay.textContent = `Здоровье: ${gameState.health}`;
     }
 
-    // Обработчик клика по монстру
+    
     monster.addEventListener('click', async function(e) {
         if (!gameState.isAlive) return;
 
         gameState.health -= gameState.damage;
 
-        // Получаем координаты клика относительно monster-area
+        
         const rect = this.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
-        // Создаем эффект урона
+        
         const damageText = document.createElement('div');
         damageText.className = 'damage-text';
         damageText.textContent = `-${gameState.damage}`;
@@ -77,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
         damageText.style.top = `${y}px`;
         damageContainer.appendChild(damageText);
 
-        // Анимация всплывания
+        
         setTimeout(() => {
             damageText.style.transform = 'translateY(-50px)';
             damageText.style.opacity = '0';
@@ -89,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
             gameState.isAlive = false;
             monster.src = "image/dead_monster1.png";
 
-            // Награда
+            
             gameState.coins += 100;
             gameState.health = 100;
 
@@ -105,6 +103,6 @@ document.addEventListener('DOMContentLoaded', function() {
         updateUI();
     });
 
-    // Запуск игры
+    
     initGame();
 });

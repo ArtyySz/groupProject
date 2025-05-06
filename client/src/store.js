@@ -8,7 +8,7 @@ let gameState = {
     cps_upgrade_price: 20
 };
 
-// Загрузка данных из сервера
+
 async function loadGameData() {
     try {
         const response = await fetch('http://localhost:5001/load');
@@ -36,7 +36,7 @@ async function loadGameData() {
     }
 }
 
-// Сохранение данных на сервер
+
 async function saveGameData(data) {
     try {
         await fetch('http://localhost:5001/save', {
@@ -49,7 +49,7 @@ async function saveGameData(data) {
     }
 }
 
-// Обработчик покупки
+
 async function handleClick(itemType) {
     if (itemType === "+1 за клик") {
         if (gameState.coins >= gameState.damage_upgrade_price) {
@@ -89,22 +89,22 @@ function updateCoinDisplay() {
     }
 }
 
-// Обновление UI магазина
+
 function updateShopUI() {
-    // Обновляем цену урона
+    
     const damagePriceElement = document.getElementById('damage-price');
     if (damagePriceElement) {
         damagePriceElement.textContent = gameState.damage_upgrade_price;
     }
 
-    // Обновляем цену монет в секунду (добавляем ID в HTML)
+    
     const cpsPriceElement = document.getElementById('cps-price');
     if (cpsPriceElement) {
         cpsPriceElement.textContent = gameState.cps_upgrade_price;
     }
 }
 
-// Эффект покупки
+
 function showPurchaseEffect() {
     const itemButtons = document.querySelectorAll('.item');
     itemButtons.forEach(button => {
@@ -115,7 +115,7 @@ function showPurchaseEffect() {
     });
 }
 
-// Инициализация магазина
+
 async function initShop() {
     await loadGameData();
 
@@ -124,7 +124,7 @@ async function initShop() {
         window.location.href = 'mainPage.html';
     });
 
-    // Пассивный доход
+   
     setInterval(async () => {
         gameState.coins += gameState.coins_per_second;
         updateCoinDisplay();

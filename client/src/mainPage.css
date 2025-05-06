@@ -9,7 +9,6 @@ body {
     overflow: hidden;
 }
 
-/* Меню */
 .menu {
     position: fixed;
     top: 20px;
@@ -108,7 +107,6 @@ body {
     pointer-events: none;
 }
 
-/* Основное содержимое */
 .main-content {
     margin-left: 26vw;
     height: 100vh;
@@ -121,7 +119,6 @@ body {
     padding-right: 30px;
 }
 
-/* Отображение монет */
 .coin-display {
     position: absolute;
     top: 20px;
@@ -149,7 +146,6 @@ body {
     filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
 }
 
-/* Уровень и здоровье */
 .level-health-container {
     display: flex;
     flex-direction: column;
@@ -189,7 +185,6 @@ body {
     text-align: center;
 }
 
-/* Область монстра */
 .container-click {
     width: 35vw;
     height: 60vh;
@@ -222,7 +217,6 @@ body {
     transform: scale(0.95);
 }
 
-/* Анимации урона и эффектов */
 .damage-container {
     position: absolute;
     top: 0;
@@ -269,7 +263,6 @@ body {
     }
 }
 
-/* Всплывающие уведомления */
 .achievement-popup {
     position: fixed;
     top: 20%;
@@ -318,7 +311,7 @@ body {
     flex-grow: 1;
 }
 
- * { /* запрещение выделения */
+ * {
     -webkit-tap-highlight-color: transparent;
     -webkit-user-select: none;
     -moz-user-select: none;
