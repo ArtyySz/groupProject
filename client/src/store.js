@@ -54,7 +54,7 @@ async function handleClick(itemType) {
     if (itemType === "+1 за клик") {
         if (gameState.coins >= gameState.damage_upgrade_price) {
             gameState.coins -= gameState.damage_upgrade_price;
-            gameState.damage += 3;
+            gameState.damage += 1;
             gameState.damage_upgrades += 1;
             gameState.damage_upgrade_price = Math.floor(20 * Math.pow(1.1, gameState.damage_upgrades));
 
