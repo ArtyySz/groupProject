@@ -65,14 +65,12 @@ window.ProfileAPI = {
     },
 
     incrementClickCounter: async function() {
-        // Сначала загружаем текущее состояние
+
         await this.loadProfile();
 
-        // Увеличиваем счетчик
         profileState.totalClicks++;
         this.updateProfileUI();
 
-        // Сохраняем
         await this.saveProfile();
     },
 
@@ -103,7 +101,8 @@ window.ProfileAPI = {
                 body: JSON.stringify({
                     username: profileState.username,
                     total_clicks: profileState.totalClicks,
-                    total_play_time: profileState.totalPlayTime
+                    total_play_time: profileState.totalPlayTime,
+                    username_set: profileState.isUsernameSet
                 })
             });
             return await response.json();
@@ -131,21 +130,24 @@ window.ProfileAPI = {
     },
 
     startPlayTimeTracker: function() {
-        if (this.playTimeInterval) clearInterval(this.playTimeInterval);
+    // очищаем старый интервал, если был
+    if (this.playTimeInterval) {
+        clearInterval(this.playTimeInterval);
+    }
 
-        // Корректный расчет времени с учетом пауз
-        const startTime = Date.now() - (profileState.totalPlayTime * 1000);
-
-        this.playTimeInterval = setInterval(() => {
-            profileState.totalPlayTime = Math.floor((Date.now() - startTime) / 1000);
+    this.playTimeInterval = setInterval(async () => { // запускаем новый интервал
+        if (profileState.isUsernameSet) {
+            profileState.totalPlayTime += 1;
             this.updateProfileUI();
 
-            // Сохраняем каждую минуту
-            if (profileState.totalPlayTime % 60 === 0) {
-                this.saveProfile();
+            // сохраняем каждые 10 секунд
+            if (profileState.totalPlayTime % 10 === 0) {
+                await this.saveProfile();
+                console.log("автосохранение времени:", profileState.totalPlayTime);
             }
-        }, 1000);
-    },
+        }
+    }, 1000);
+},
 
     async saveUsername() {
         const elements = this.getElements();

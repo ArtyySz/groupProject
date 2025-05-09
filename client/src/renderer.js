@@ -1,20 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Загрузка профиля
     const profileScript = document.createElement('script');
     profileScript.src = 'profile.js';
     document.head.appendChild(profileScript);
 
-    // Элементы интерфейса
     const monster = document.getElementById('monster');
     const coinsDisplay = document.getElementById('coins');
     const healthDisplay = document.querySelector('.health');
     const damageContainer = document.getElementById('damageContainer');
     const levelDisplay = document.getElementById('level');
 
-    // Конфигурация
     const API_URL = 'http://localhost:5001';
 
-    // Состояние игры
     let gameState = {
         coins: 0,
         health: 100,
@@ -29,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
         cps_upgrade_price: 20
     };
 
-    // Загрузка данных из БД
     async function loadGame() {
         try {
             const response = await fetch(`${API_URL}/load`);
@@ -84,14 +79,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Обновление интерфейса
     function updateUI() {
         coinsDisplay.textContent = gameState.coins;
         healthDisplay.textContent = `Здоровье: ${gameState.health}`;
         levelDisplay.textContent = `Уровень: ${gameState.level}`;
     }
 
-    // Показывает анимацию урона
     function showDamageEffect(event, damage) {
         const monsterRect = monster.getBoundingClientRect();
         const containerRect = damageContainer.getBoundingClientRect();
@@ -109,7 +102,6 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => damageText.remove(), 800);
     }
 
-    // Показывает анимацию награды
     function showRewardAnimation(reward, oldCoins) {
         const rewardText = document.createElement('div');
         rewardText.className = 'reward-text';
@@ -136,14 +128,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const duration = 1000;
 
         const animate = () => {
-            const progress = Math.min((Date.now() - startTime) / duration, 1);
-            coinsDisplay.textContent = Math.floor(from + (to - from) * progress);
-            if (progress < 1) requestAnimationFrame(animate);
+            const progress = Math.min((Date.now() - startTime) / duration, 1); // вычисляет какая часть анимации прошла от 0 до 1
+            coinsDisplay.textContent = Math.floor(from + (to - from) * progress); // выводим текущее число
+            if (progress < 1) requestAnimationFrame(animate); // апи браузера для плавной анимации
         };
         animate();
     }
 
-    // Обработчик клика по монстру
     monster.addEventListener('click', async function(e) {
         if (!gameState.isAlive) return;
 
@@ -212,4 +203,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Инициализация игры
     loadGame();
+    setTimeout(() => {
+    if (window.ProfileAPI) {
+        console.log("Инициализация ProfileAPI из renderer.js");
+        window.ProfileAPI.init();
+        window.ProfileAPI.startPlayTimeTracker();
+    } else {
+        console.error("ProfileAPI не доступен!");
+    }
+}, 500);
 });
