@@ -6,20 +6,19 @@ import logging
 import os
 from dotenv import load_dotenv
 
-# Загрузка переменных окружения
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
-# Настройка логгирования
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Конфигурация БД из переменных окружения
+
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
     'DATABASE_URL',
-    'postgresql://postgres:postgres@localhost:5432/clicker_game'  # Дефолтные значения для разработки
+    'postgresql://postgres:postgres@localhost:5432/clicker_game'
 )
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -39,7 +38,7 @@ class GameSave(db.Model):
     cps_upgrades = db.Column(db.Integer, default=0)
     cps_upgrade_price = db.Column(db.Integer, default=20)
 
-@app.route('/load', methods=['GET'])
+@app.route('/load', methods=['GET']) # обрабатываем
 def load_game():
     try:
         save = GameSave.query.first()
@@ -49,7 +48,7 @@ def load_game():
             db.session.commit()
             logger.info("Created new game save")
 
-        return jsonify({
+        return jsonify({ # переобразуем в json
             "coins": save.coins,
             "level": save.level,
             "damage": save.damage,
@@ -68,7 +67,7 @@ def load_game():
 @app.route('/save', methods=['POST'])
 def save_game():
     try:
-        data = request.get_json()
+        data = request.get_json() # получаем json
         save = GameSave.query.first()
 
         if not save:
@@ -95,7 +94,7 @@ def save_game():
 class UserProfile(db.Model):
     __tablename__ = 'user_profiles'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), nullable=False, default='Гость', unique=True)  # Уникальное имя
+    username = db.Column(db.String(20), nullable=False, default='Гость', unique=True)
     total_clicks = db.Column(db.Integer, default=0)
     total_play_time = db.Column(db.Integer, default=0)
     last_login = db.Column(db.DateTime, default=db.func.now())
@@ -107,21 +106,20 @@ def save_profile():
         return jsonify({}), 200
 
     try:
-        data = request.get_json()
-        print("Received profile data:", data)  # Для отладки
+        data = request.get_json() # получаем данные json
+        print("Received profile data:", data)
 
         profile = UserProfile.query.first()
         if not profile:
             profile = UserProfile()
             db.session.add(profile)
 
-        # Обновляем все поля, включая username и username_set
         if 'username' in data:
             profile.username = data['username']
-            profile.username_set = (data['username'] != 'Гость')  # Автоматически определяем
+            profile.username_set = (data['username'] != 'Гость')
 
         if 'total_clicks' in data:
-            profile.total_clicks = max(0, int(data['total_clicks']))
+            profile.total_clicks = max(0, int(data['total_clicks'])) # если есть обновляем кол-во кликов
             print("Updating clicks to:", profile.total_clicks)
 
         if 'total_play_time' in data:
@@ -131,7 +129,7 @@ def save_profile():
         return jsonify({
             "status": "success",
             "saved_clicks": profile.total_clicks,
-            "username_set": profile.username_set  # Для отладки
+            "username_set": profile.username_set
         })
     except Exception as e:
         db.session.rollback()
@@ -175,7 +173,7 @@ def save_clicks():
         return jsonify({"error": str(e)}), 500
 
 
-@app.cli.command()
+@app.cli.command() # через команду создать таблицы flask db init
 def init_db():
     """Initialize the database."""
     db.create_all()
