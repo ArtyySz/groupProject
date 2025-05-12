@@ -101,10 +101,10 @@ class UserProfile(db.Model):
     last_login = db.Column(db.DateTime, default=db.func.now())
     username_set = db.Column(db.Boolean, default=False)
 
-@app.route('/profile/save', methods=['POST', 'OPTIONS'])  # Добавляем OPTIONS
+@app.route('/profile/save', methods=['POST', 'OPTIONS'])
 def save_profile():
     if request.method == 'OPTIONS':
-        return jsonify({}), 200  # Возвращаем пустой ответ для OPTIONS
+        return jsonify({}), 200
 
     try:
         data = request.get_json()
@@ -115,16 +115,36 @@ def save_profile():
             profile = UserProfile()
             db.session.add(profile)
 
+        # Обновляем имя пользователя, если оно передано и не установлено
+        if 'username' in data and not profile.username_set:
+            new_username = data['username'].strip()
+            if new_username and new_username != 'Гость':
+                # Проверяем, не занято ли имя
+                if UserProfile.query.filter_by(username=new_username).first() and UserProfile.query.count() > 1:
+                    return jsonify({"error": "Username already taken"}), 400
+                
+                profile.username = new_username
+                profile.username_set = True
+                print("Username set to:", profile.username)
+
         # Всегда обновляем клики и время
         if 'total_clicks' in data:
             profile.total_clicks = max(0, int(data['total_clicks']))
-            print("Updating clicks to:", profile.total_clicks)
 
         if 'total_play_time' in data:
             profile.total_play_time = max(0, int(data['total_play_time']))
 
+        # Обновляем время последнего входа
+        profile.last_login = db.func.now()
+
         db.session.commit()
-        return jsonify({"status": "success", "saved_clicks": profile.total_clicks})
+        return jsonify({
+            "status": "success",
+            "username": profile.username,
+            "username_set": profile.username_set,
+            "total_clicks": profile.total_clicks,
+            "total_play_time": profile.total_play_time
+        })
     except Exception as e:
         db.session.rollback()
         logger.error(f"Error saving profile: {str(e)}")

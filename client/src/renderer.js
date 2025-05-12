@@ -1,20 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Загрузка профиля
     const profileScript = document.createElement('script');
     profileScript.src = 'profile.js';
     document.head.appendChild(profileScript);
 
-    // Элементы интерфейса
     const monster = document.getElementById('monster');
     const coinsDisplay = document.getElementById('coins');
     const healthDisplay = document.querySelector('.health');
     const damageContainer = document.getElementById('damageContainer');
     const levelDisplay = document.getElementById('level');
 
-    // Конфигурация
     const API_URL = 'http://localhost:5001';
 
-    // Состояние игры
     let gameState = {
         coins: 0,
         health: 100,
@@ -29,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
         cps_upgrade_price: 20
     };
 
-    // Загрузка данных из БД
     async function loadGame() {
         try {
             const response = await fetch(`${API_URL}/load`);

@@ -77,23 +77,32 @@ window.ProfileAPI = {
     },
 
     async loadProfile() {
-        try {
-            const response = await fetch(`${API_URL}/profile/load`);
-            const data = await response.json();
-
-            profileState.username = data.username || 'Гость';
-            profileState.totalClicks = data.total_clicks || 0;
-            profileState.totalPlayTime = data.total_play_time || 0;
-            profileState.isUsernameSet = data.username_set || (data.username && data.username !== 'Гость');
-
-            this.updateProfileUI();
-            if (profileState.isUsernameSet) {
-                this.startPlayTimeTracker();
-            }
-        } catch (error) {
-            console.error("Ошибка загрузки профиля:", error);
+    try {
+        const response = await fetch(`${API_URL}/profile/load`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-    },
+        
+        const data = await response.json();
+
+        profileState.username = data.username || 'Гость';
+        profileState.totalClicks = data.total_clicks || 0;
+        profileState.totalPlayTime = data.total_play_time || 0;
+        profileState.isUsernameSet = data.username_set || 
+                                    (data.username && data.username !== 'Гость');
+
+        this.updateProfileUI();
+        
+        if (profileState.isUsernameSet) {
+            this.startPlayTimeTracker();
+        }
+    } catch (error) {
+        console.error("Ошибка загрузки профиля:", error);
+        // Можно добавить загрузку из localStorage
+        this.updateProfileUI();
+    }
+},
 
     async saveProfile() {
         try {
@@ -131,52 +140,73 @@ window.ProfileAPI = {
     },
 
     startPlayTimeTracker: function() {
-        if (this.playTimeInterval) clearInterval(this.playTimeInterval);
+    // Очищаем предыдущий интервал, если он был
+    if (this.playTimeInterval) {
+        clearInterval(this.playTimeInterval);
+    }
 
-        // Корректный расчет времени с учетом пауз
-        const startTime = Date.now() - (profileState.totalPlayTime * 1000);
+    // Запоминаем время начала отслеживания
+    const trackingStartTime = Date.now();
+    const initialPlayTime = profileState.totalPlayTime;
 
-        this.playTimeInterval = setInterval(() => {
-            profileState.totalPlayTime = Math.floor((Date.now() - startTime) / 1000);
-            this.updateProfileUI();
+    this.playTimeInterval = setInterval(async () => {
+        // Вычисляем прошедшее время с момента начала отслеживания
+        const elapsedTime = Math.floor((Date.now() - trackingStartTime) / 1000);
+        profileState.totalPlayTime = initialPlayTime + elapsedTime;
+        
+        this.updateProfileUI();
 
-            // Сохраняем каждую минуту
-            if (profileState.totalPlayTime % 60 === 0) {
-                this.saveProfile();
-            }
-        }, 1000);
-    },
+        // Сохраняем каждые 30 секунд (можно изменить интервал)
+        if (elapsedTime % 30 === 0) {
+            await this.saveProfile();
+        }
+    }, 1000);
+},
 
     async saveUsername() {
-        const elements = this.getElements();
-        const newUsername = elements.usernameInput.value.trim();
+    const elements = this.getElements();
+    const newUsername = elements.usernameInput.value.trim();
 
-        if (newUsername && newUsername !== 'Гость' && !profileState.isUsernameSet) {
-            try {
-                const response = await fetch(`${API_URL}/profile/save`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        username: newUsername,
-                        total_clicks: 0,
-                        total_play_time: 0
-                    })
-                });
-
-                const result = await response.json();
-                if (!result.error) {
-                    profileState.username = newUsername;
-                    profileState.isUsernameSet = true;
-                    elements.usernameInput.style.display = 'none';
-                    elements.usernameDisplay.style.display = 'block';
-                    elements.editUsernameBtn.style.display = 'none';
-                    this.startPlayTimeTracker();
-                }
-            } catch (error) {
-                console.error("Ошибка сохранения ника:", error);
-            }
-        }
+    if (!newUsername || newUsername === 'Гость') {
+        return;
     }
+
+    try {
+        const response = await fetch(`${API_URL}/profile/save`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                username: newUsername,
+                total_clicks: profileState.totalClicks,
+                total_play_time: profileState.totalPlayTime
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Failed to save username');
+        }
+
+        const result = await response.json();
+        
+        // Обновляем состояние только после успешного сохранения
+        profileState.username = result.username || newUsername;
+        profileState.isUsernameSet = result.username_set || true;
+        
+        elements.usernameInput.style.display = 'none';
+        elements.usernameDisplay.style.display = 'block';
+        elements.editUsernameBtn.style.display = 'none';
+        
+        this.updateProfileUI();
+        this.startPlayTimeTracker();
+        
+        return result;
+    } catch (error) {
+        console.error("Ошибка сохранения ника:", error);
+        alert(error.message || 'Не удалось сохранить имя пользователя');
+        throw error;
+    }
+}
 };
 
 // Инициализация
